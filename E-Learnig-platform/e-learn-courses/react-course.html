@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Tutorial</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    pre {
+      background-color: #f3f4f6;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+    }
+    #sidebar {
+      transition: transform 0.3s ease-in-out;
+    }
+    @media (max-width: 768px) {
+      #sidebar {
+        transform: translateX(-100%);
+      }
+      #sidebar.open {
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-900 text-white p-4 overflow-y-auto md:transform-none z-50">
+    <h2 class="text-xl font-bold mb-4">Lesson Contents</h2>
+    <ul id="sidebar-links" class="space-y-2"></ul>
+    <button id="close-sidebar" class="md:hidden mt-4 bg-red-600 px-4 py-2 rounded-md">Close</button>
+  </aside>
+
+  <!-- Mobile Toggle Button -->
+  <button id="open-sidebar" class="md:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-md">
+    ☰ Menu
+  </button>
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white py-6 md:ml-64">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold">Lesson 1: Introduction to React</h1>
+      <p class="mt-2">Learn the basics of React to build dynamic web applications on the E-Learn platform.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8 md:ml-64">
+    <section class="bg-white p-6 rounded-lg shadow-md">
+      <h2 id="what-is-react" class="text-2xl font-semibold mb-4">What is React?</h2>
+      <p class="mb-4">
+        React is a JavaScript library for building user interfaces, particularly single-page applications. It allows developers to create reusable UI components.
+      </p>
+
+      <h2 id="setting-up-react" class="text-2xl font-semibold mb-4 mt-6">Setting Up React</h2>
+      <p class="mb-4">
+        For this tutorial, we’ll use React via CDNs for simplicity. Here’s a basic setup with React, ReactDOM, and Babel:
+      </p>
+      <pre class="mb-4"><code><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>React Example</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    function App() {
+      return <h1>Hello, React!</h1>;
+    }
+    ReactDOM.render(<App />, document.getElementById("root"));
+  </script>
+</body>
+</html></code></pre>
+
+      <h3 class="text-xl font-semibold mb-2">Try It Live</h3>
+      <iframe
+        class="w-full h-64 border border-gray-300 rounded-md mb-4"
+        srcdoc='<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>React Example</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    function App() {
+      return <h1>Hello, React!</h1>;
+    }
+    ReactDOM.render(<App />, document.getElementById("root"));
+  </script>
+</body>
+</html>'
+      ></iframe>
+
+      <h2 id="react-components" class="text-2xl font-semibold mb-4 mt-6">React Components</h2>
+      <p class="mb-4">
+        Components are the building blocks of React applications. They can be functional (like the example above) or class-based. Here’s a component with state:
+      </p>
+      <pre class="mb-4"><code><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Counter Example</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    function Counter() {
+      const [count, setCount] = React.useState(0);
+      return (
+        <div>
+          <p>Count: {count}</p>
+          <button onClick={() => setCount(count + 1)}>Increment</button>
+        </div>
+      );
+    }
+    ReactDOM.render(<Counter />, document.getElementById("root"));
+  </script>
+</body>
+</html></code></pre>
+      <h3 class="text-xl font-semibold mb-2">Try It Live</h3>
+      <iframe
+        class="w-full h-64 border border-gray-300 rounded-md mb-4"
+        srcdoc='<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Counter Example</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    function Counter() {
+      const [count, setCount] = React.useState(0);
+      return (
+        <div>
+          <p>Count: {count}</p>
+          <button onClick={() => setCount(count + 1)}>Increment</button>
+        </div>
+      );
+    }
+    ReactDOM.render(<Counter />, document.getElementById("root"));
+  </script>
+</body>
+</html>'
+      ></iframe>
+
+      <h2 id="practice-exercise" class="text-2xl font-semibold mb-4 mt-6">Practice Exercise</h2>
+      <p class="mb-4">
+        Create a React page with:
+        <ul class="list-disc pl-6">
+          <li>A functional component that displays your name in a heading.</li>
+          <li>A button that updates a counter when clicked.</li>
+          <li>A paragraph that changes text based on a state variable.</li>
+        </ul>
+      </p>
+    </section>
+
+    <!-- Navigation Links -->
+    <nav class="mt-8 flex justify-between md:ml-64">
+      <a
+        href="javascript-course.html"
+        class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+      >
+        Previous Lesson: Introduction to JavaScript
+      </a>
+      <a
+        href="bootstrap-course.html"
+        class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+      >
+        Next Lesson: Introduction to Bootstrap
+      </a>
+    </nav>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-4 mt-8 md:ml-64">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2025 E-Learn Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Sidebar -->
+  <script>
+    // Generate sidebar links
+    const headings = document.querySelectorAll('h2');
+    const sidebarLinks = document.getElementById('sidebar-links');
+    headings.forEach(heading => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${heading.id}`;
+      a.textContent = heading.textContent;
+      a.className = 'hover:text-blue-400';
+      li.appendChild(a);
+      sidebarLinks.appendChild(li);
+    });
+
+    // Toggle sidebar on mobile
+    const openSidebar = document.getElementById('open-sidebar');
+    const closeSidebar = document.getElementById('close-sidebar');
+    const sidebar = document.getElementById('sidebar');
+
+    openSidebar.addEventListener('click', () => {
+      sidebar.classList.add('open');
+    });
+
+    closeSidebar.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+    });
+  </script>
+</body>
+</html>

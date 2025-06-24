@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Tutorial</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    pre {
+      background-color: #f3f4f6;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+    }
+    #sidebar {
+      transition: transform 0.3s ease-in-out;
+    }
+    @media (max-width: 768px) {
+      #sidebar {
+        transform: translateX(-100%);
+      }
+      #sidebar.open {
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-900 text-white p-4 overflow-y-auto md:transform-none z-50">
+    <h2 class="text-xl font-bold mb-4">Lesson Contents</h2>
+    <ul id="sidebar-links" class="space-y-2"></ul>
+    <button id="close-sidebar" class="md:hidden mt-4 bg-red-600 px-4 py-2 rounded-md">Close</button>
+  </aside>
+
+  <!-- Mobile Toggle Button -->
+  <button id="open-sidebar" class="md:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-md">
+    ☰ Menu
+  </button>
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white py-6 md:ml-64">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold">Lesson 1: Introduction to HTML</h1>
+      <p class="mt-2">Begin your journey into web development with HTML on the E-Learn platform.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8 md:ml-64">
+    <section class="bg-white p-6 rounded-lg shadow-md">
+      <h2 id="what-is-html" class="text-2xl font-semibold mb-4">What is HTML?</h2>
+      <p class="mb-4">
+        HTML (HyperText Markup Language) is the foundation of web development. It provides the structure for web pages using elements like headings, paragraphs, and links.
+      </p>
+
+      <h2 id="basic-html-structure" class="text-2xl font-semibold mb-4 mt-6">Basic HTML Structure</h2>
+      <p class="mb-4">
+        An HTML document starts with a `<!DOCTYPE html>` declaration, followed by `<html>`, `<head>`, and `<body>` tags. Here's an example:
+      </p>
+      <pre class="mb-4"><code><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My First Page</title>
+</head>
+<body>
+  <h1>Hello, World!</h1>
+  <p>This is my first web page.</p>
+</body>
+</html></code></pre>
+
+      <h3 class="text-xl font-semibold mb-2">Try It Live</h3>
+      <iframe
+        class="w-full h-64 border border-gray-300 rounded-md mb-4"
+        srcdoc='<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My First Page</title>
+</head>
+<body>
+  <h1>Hello, World!</h1>
+  <p>This is my first web page.</p>
+</body>
+</html>'
+      ></iframe>
+
+      <h2 id="common-html-elements" class="text-2xl font-semibold mb-4 mt-6">Common HTML Elements</h2>
+      <ul class="list-disc pl-6 mb-4">
+        <li><code><h1></code> to <code><h6></code>: Define headings of different levels.</li>
+        <li><code><p></code>: Create paragraphs for text content.</li>
+        <li><code><a href="..."></code>: Add hyperlinks to other pages or resources.</li>
+        <li><code><img src="..." alt="..."></code>: Embed images.</li>
+      </ul>
+
+      <h3 class="text-xl font-semibold mb-2">Example: Adding a Link</h3>
+      <pre class="mb-4"><code><a href="https://example.com">Visit Example</a></code></pre>
+      <iframe
+        class="w-full h-24 border border-gray-300 rounded-md mb-4"
+        srcdoc='<a href="https://example.com">Visit Example</a>'
+      ></iframe>
+
+      <h2 id="practice-exercise" class="text-2xl font-semibold mb-4 mt-6">Practice Exercise</h2>
+      <p class="mb-4">
+        Create an HTML page with the following:
+        <ul class="list-disc pl-6">
+          <li>A main heading (<code><h1></code>) with your name.</li>
+          <li>A paragraph describing your favorite hobby.</li>
+          <li>A link to a website you like.</li>
+        </ul>
+      </p>
+    </section>
+
+    <!-- Navigation Links -->
+    <nav class="mt-8 flex justify-end md:ml-64">
+      <a
+        href="css-course.html"
+        class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+      >
+        Next Lesson: Introduction to CSS
+      </a>
+    </nav>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-4 mt-8 md:ml-64">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2025 E-Learn Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Sidebar -->
+  <script>
+    // Generate sidebar links
+    const headings = document.querySelectorAll('h2');
+    const sidebarLinks = document.getElementById('sidebar-links');
+    headings.forEach(heading => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${heading.id}`;
+      a.textContent = heading.textContent;
+      a.className = 'hover:text-blue-400';
+      li.appendChild(a);
+      sidebarLinks.appendChild(li);
+    });
+
+    // Toggle sidebar on mobile
+    const openSidebar = document.getElementById('open-sidebar');
+    const closeSidebar = document.getElementById('close-sidebar');
+    const sidebar = document.getElementById('sidebar');
+
+    openSidebar.addEventListener('click', () => {
+      sidebar.classList.add('open');
+    });
+
+    closeSidebar.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+    });
+  </script>
+</body>
+</html>
