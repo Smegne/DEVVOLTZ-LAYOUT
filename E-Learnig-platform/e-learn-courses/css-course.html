@@ -1,53 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CSS Course - E-Learn</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-
-  <div class="container mt-5 pt-4">
-    <h2 class="text-primary">CSS Tutorial</h2>
-    <hr />
-
-    <div class="lesson mb-5">
-      <h4>Lesson 1: Introduction to CSS</h4>
-      <p>This is a beginner-level lesson for learning CSS on the E-Learn platform.</p>
-
-      <div class="bg-light border rounded p-3 mb-3">
-        <strong>Example:</strong>
-        <pre><code>// Your first CSS example will appear here</code></pre>
-      </div>
-
-      <button class="btn btn-primary mb-3" onclick="showOutput()">Try It Live</button>
-      <iframe id="liveEditor" class="w-100" height="200"></iframe>
-    </div>
-
-    <a href="#" class="btn btn-outline-primary">Next Lesson &raquo;</a>
-  </div>
-
-  <script>
-    function showOutput() {
-      const code = `// Output preview for CSS`;
-      const iframe = document.getElementById("liveEditor").contentWindow.document;
-      iframe.open();
-      iframe.write(code);
-      iframe.close();
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Devvoltz CSS Tutorial</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const lessonKey = "lesson-css-1";
-      localStorage.setItem(lessonKey, true);
+    pre {
+      background-color: #f3f4f6;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+    }
 
-      const progress = document.getElementById("progress");
-      if (progress) {
-        const completed = Object.keys(localStorage).filter(k => k.startsWith("lesson-")).length;
-        progress.innerText = "Lessons Completed: " + completed;
+    #sidebar {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    #sidebar a {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.375rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #sidebar a:hover {
+      background-color: #1e40af;
+      color: #ffffff;
+      transform: translateX(5px);
+    }
+
+    #sidebar a.active {
+      background-color: #3b82f6;
+      font-weight: bold;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      #sidebar {
+        transform: translateX(-100%);
       }
-    });
-  </script>
 
+      #sidebar.open {
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-900 text-white p-4 overflow-y-auto md:transform-none z-50">
+    <h2 class="text-xl font-bold mb-4">CSS Tutorial</h2>
+    <div class="mt-6">
+      <h3 class="font-semibold mb-2">CSS Topics</h3>
+      <ul class="space-y-1 text-sm" id="sidebar-links">
+        <li><a href="#css-syntax" class="text-gray-300 block">CSS Syntax</a></li>
+        <li><a href="#css-selectors" class="text-gray-300 block">CSS Selectors</a></li>
+        <li><a href="#css-how-to" class="text-gray-300 block">CSS How To</a></li>
+        <li><a href="#css-comments" class="text-gray-300 block">CSS Comments</a></li>
+        <li><a href="#css-colors" class="text-gray-300 block">CSS Colors</a></li>
+        <li><a href="#css-backgrounds" class="text-gray-300 block">CSS Backgrounds</a></li>
+        <li><a href="#css-borders" class="text-gray-300 block">CSS Borders</a></li>
+        <li><a href="#css-margins" class="text-gray-300 block">CSS Margins</a></li>
+        <li><a href="#css-padding" class="text-gray-300 block">CSS Padding</a></li>
+        <li><a href="#css-box-model" class="text-gray-300 block">CSS Box Model</a></li>
+        <li><a href="#css-text" class="text-gray-300 block">CSS Text</a></li>
+        <li><a href="#css-fonts" class="text-gray-300 block">CSS Fonts</a></li>
+        <li><a href="#css-position" class="text-gray-300 block">CSS Position</a></li>
+        <li><a href="#css-overflow" class="text-gray-300 block">CSS Overflow</a></li>
+        <li><a href="#css-float" class="text-gray-300 block">CSS Float</a></li>
+        <li><a href="#css-align" class="text-gray-300 block">CSS Align</a></li>
+        <li><a href="#css-combinators" class="text-gray-300 block">CSS Combinators</a></li>
+        <li><a href="#css-pseudo-classes" class="text-gray-300 block">CSS Pseudo-classes</a></li>
+        <li><a href="#css-pseudo-elements" class="text-gray-300 block">CSS Pseudo-elements</a></li>
+        <li><a href="#css-opacity" class="text-gray-300 block">CSS Opacity</a></li>
+      </ul>
+    </div>
+    <button id="close-sidebar" class="md:hidden mt-4 bg-red-600 px-4 py-2 rounded-md">Close</button>
+  </aside>
+
+  <!-- Mobile Toggle Button -->
+  <button id="open-sidebar" class="md:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-md">
+    ☰ Menu
+  </button>
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white py-6 md:ml-64">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold">Introduction to CSS</h1>
+      <p class="mt-2">Learn the essentials of styling web pages with CSS on the Devvoltz platform.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8 md:ml-64 space-y-12" id="main-content">
+    <section class="bg-white p-6 rounded-lg shadow-md" id="welcome">
+      <h2 class="text-2xl font-semibold mb-4">Welcome to CSS</h2>
+      <p class="mb-4">CSS (Cascading Style Sheets) is used to style and layout web pages. This tutorial will guide you through key CSS concepts with practical examples.</p>
+      <p class="mb-4">Select a topic from the sidebar to begin learning!</p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-4 mt-8 md:ml-64">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2025 Devvoltz Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Topic content data
+    const topicContents = {
+      "css-syntax": {
+        title: "CSS Syntax",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Syntax</h2>
+          <p class="mb-4">CSS rules consist of a selector and a declaration block. The selector points to the HTML element, and the declaration block contains one or more declarations with property-value pairs.</p>
+          <pre class="mb-4"><code>h1 { color: blue; font-size: 24px; }</code></pre>
+          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>h1 { color: blue; font-size: 24px; }</style>
+            <h1>Hello, World!</h1>
+          '></iframe>
+        `
+      },
+      "css-selectors": {
+        title: "CSS Selectors",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Selectors</h2>
+          <p class="mb-4">Selectors target HTML elements to apply styles. Common selectors include element, class, ID, and attribute selectors.</p>
+          <pre class="mb-4"><code>.class { color: red; }\n#id { font-weight: bold; }\np { font-size: 16px; }</code></pre>
+          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>.class { color: red; } #id { font-weight: bold; } p { font-size: 16px; }</style>
+            <p class="class">Class selector</p>
+            <p id="id">ID selector</p>
+            <p>Element selector</p>
+          '></iframe>
+        `
+      },
+      "css-how-to": {
+        title: "CSS How To",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS How To</h2>
+          <p class="mb-4">CSS can be applied via external stylesheets, internal styles, or inline styles. External stylesheets are preferred for maintainability.</p>
+          <pre class="mb-4"><code>&lt;link rel="stylesheet" href="styles.css"&gt;</code></pre>
+        `
+      },
+      "css-comments": {
+        title: "CSS Comments",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Comments</h2>
+          <p class="mb-4">Comments in CSS are written using /* */ and are ignored by browsers.</p>
+          <pre class="mb-4"><code>/* This is a comment */\np { color: green; }</code></pre>
+        `
+      },
+      "css-colors": {
+        title: "CSS Colors",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Colors</h2>
+          <p class="mb-4">Colors can be specified using names, HEX, RGB, or HSL values.</p>
+          <pre class="mb-4"><code>p { color: #ff0000; }\nspan { background-color: rgb(0, 255, 0); }</code></pre>
+          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>p { color: #ff0000; } span { background-color: rgb(0, 255, 0); }</style>
+            <p>Red text</p><span>Green background</span>
+          '></iframe>
+        `
+      },
+      "css-backgrounds": {
+        title: "CSS Backgrounds",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Backgrounds</h2>
+          <p class="mb-4">Background properties include color, images, repeat, and position.</p>
+          <pre class="mb-4"><code>div { background: url('image.jpg') no-repeat center; }</code></pre>
+        `
+      },
+      "css-borders": {
+        title: "CSS Borders",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Borders</h2>
+          <p class="mb-4">Borders can be styled with width, style, and color.</p>
+          <pre class="mb-4"><code>div { border: 2px solid black; }</code></pre>
+          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>div { border: 2px solid black; padding: 10px; }</style>
+            <div>Box with border</div>
+          '></iframe>
+        `
+      },
+      "css-margins": {
+        title: "CSS Margins",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Margins</h2>
+          <p class="mb-4">Margins create space outside elements.</p>
+          <pre class="mb-4"><code>div { margin: 20px; }</code></pre>
+          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>div { margin: 20px; border: 1px solid; }</style>
+            <div>Box with margin</div>
+          '></iframe>
+        `
+      },
+      "css-padding": {
+        title: "CSS Padding",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Padding</h2>
+          <p class="mb-4">Padding creates space inside elements, between content and border.</p>
+          <pre class="mb-4"><code>div { padding: 15px; border: 1px solid; }</code></pre>
+          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>div { padding: 15px; border: 1px solid; }</style>
+            <div>Box with padding</div>
+          '></iframe>
+        `
+      },
+      "css-box-model": {
+        title: "CSS Box Model",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Box Model</h2>
+          <p class="mb-4">The box model includes content, padding, border, and margin.</p>
+          <pre class="mb-4"><code>div { width: 200px; padding: 10px; border: 5px solid black; margin: 15px; }</code></pre>
+          <iframe class="w-full h-64 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>div { width: 200px; padding: 10px; border: 5px solid black; margin: 15px; background: lightblue; }</style>
+            <div>Box model example</div>
+          '></iframe>
+        `
+      },
+      "css-text": {
+        title: "CSS Text",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Text</h2>
+          <p class="mb-4">Text properties include alignment, decoration, and transformation.</p>
+          <pre class="mb-4"><code>p { text-align: center; text-decoration: underline; text-transform: uppercase; }</code></pre>
+          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>p { text-align: center; text-decoration: underline; text-transform: uppercase; }</style>
+            <p>Styled text</p>
+          '></iframe>
+        `
+      },
+      "css-fonts": {
+        title: "CSS Fonts",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Fonts</h2>
+          <p class="mb-4">Font properties control typeface, size, and weight.</p>
+          <pre class="mb-4"><code>p { font-family: Arial; font-size: 18px; font-weight: bold; }</code></pre>
+          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>p { font-family: Arial; font-size: 18px; font-weight: bold; }</style>
+            <p>Styled font</p>
+          '></iframe>
+        `
+      },
+      "css-position": {
+        title: "CSS Position",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Position</h2>
+          <p class="mb-4">Position properties like static, relative, absolute, and fixed control element placement.</p>
+          <pre class="mb-4"><code>div { position: absolute; top: 20px; left: 20px; }</code></pre>
+          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>div { position: absolute; top: 20px; left: 20px; background: lightblue; padding: 10px; }</style>
+            <div>Absolutely positioned</div>
+          '></iframe>
+        `
+      },
+      "css-overflow": {
+        title: "CSS Overflow",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Overflow</h2>
+          <p class="mb-4">Overflow controls what happens when content exceeds an element's size.</p>
+          <pre class="mb-4"><code>div { width: 200px; height: 100px; overflow: auto; }</code></pre>
+          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>div { width: 200px; height: 100px; overflow: auto; border: 1px solid; }</style>
+            <div>Long content that overflows the box and triggers a scrollbar.</div>
+          '></iframe>
+        `
+      },
+      "css-float": {
+        title: "CSS Float",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Float</h2>
+          <p class="mb-4">Float allows elements to wrap around each other, often used for layouts.</p>
+          <pre class="mb-4"><code>img { float: left; margin-right: 10px; }</code></pre>
+          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>img { float: left; margin-right: 10px; } p { overflow: hidden; }</style>
+            <img src="https://via.placeholder.com/100" alt="Sample"><p>Text wraps around the floated image.</p>
+          '></iframe>
+        `
+      },
+      "css-align": {
+        title: "CSS Align",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Align</h2>
+          <p class="mb-4">Alignment properties like flex and grid make centering content easy.</p>
+          <pre class="mb-4"><code>div { display: flex; justify-content: center; align-items: center; height: 100px; }</code></pre>
+          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>div { display: flex; justify-content: center; align-items: center; height: 100px; border: 1px solid; }</style>
+            <div>Centered content</div>
+          '></iframe>
+        `
+      },
+      "css-combinators": {
+        title: "CSS Combinators",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Combinators</h2>
+          <p class="mb-4">Combinators like descendant, child, and sibling selectors define relationships between elements.</p>
+          <pre class="mb-4"><code>div > p { color: blue; }</code></pre>
+          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>div > p { color: blue; }</style>
+            <div><p>Blue text</p><span><p>Not blue</p></span></div>
+          '></iframe>
+        `
+      },
+      "css-pseudo-classes": {
+        title: "CSS Pseudo-classes",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Pseudo-classes</h2>
+          <p class="mb-4">Pseudo-classes style elements based on their state, like :hover or :focus.</p>
+          <pre class="mb-4"><code>a:hover { color: red; }</code></pre>
+          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>a:hover { color: red; }</style>
+            <a href="#">Hover me</a>
+          '></iframe>
+        `
+      },
+      "css-pseudo-elements": {
+        title: "CSS Pseudo-elements",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Pseudo-elements</h2>
+          <p class="mb-4">Pseudo-elements like ::before and ::after style specific parts of an element.</p>
+          <pre class="mb-4"><code>p::before { content: "★ "; }</code></pre>
+          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>p::before { content: "★ "; }</style>
+            <p>Star before text</p>
+          '></iframe>
+        `
+      },
+      "css-opacity": {
+        title: "CSS Opacity",
+        content: `
+          <h2 class="text-2xl font-semibold mb-4">CSS Opacity</h2>
+          <p class="mb-4">Opacity controls the transparency of an element, ranging from 0 (transparent) to 1 (opaque).</p>
+          <pre class="mb-4"><code>div { opacity: 0.5; }</code></pre>
+          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+            <style>div { opacity: 0.5; background: blue; color: white; padding: 10px; }</style>
+            <div>Semi-transparent box</div>
+          '></iframe>
+        `
+      }
+    };
+
+    // Sidebar toggle (mobile)
+    document.getElementById('open-sidebar').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.add('open');
+    });
+
+    document.getElementById('close-sidebar').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+    });
+
+    // Sidebar link click handler
+    document.querySelectorAll('#sidebar-links a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const topicId = link.getAttribute('href').substring(1);
+        loadTopicContent(topicId);
+
+        // Update active state
+        document.querySelectorAll('#sidebar-links a').forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+
+        // Close sidebar on mobile after clicking
+        document.getElementById('sidebar').classList.remove('open');
+      });
+    });
+
+    function loadTopicContent(topicId) {
+      const mainContent = document.getElementById('main-content');
+      const topic = topicContents[topicId];
+      if (topic) {
+        mainContent.innerHTML = `
+          <section class="bg-white p-6 rounded-lg shadow-md">
+            ${topic.content}
+            <button onclick="document.getElementById('main-content').innerHTML = document.getElementById('welcome').outerHTML" 
+                    class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+              Back to Welcome
+            </button>
+          </section>
+        `;
+      } else {
+        mainContent.innerHTML = `
+          <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Topic Not Found</h2>
+            <p>No content available for this topic.</p>
+            <button onclick="document.getElementById('main-content').innerHTML = document.getElementById('welcome').outerHTML" 
+                    class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+              Back to Welcome
+            </button>
+          </section>
+        `;
+      }
+    }
+  </script>
 </body>
 </html>
