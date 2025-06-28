@@ -118,18 +118,48 @@
   <script>
     // Topic content data
     const topicContents = {
-      "css-syntax": {
-        title: "CSS Syntax",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Syntax</h2>
-          <p class="mb-4">CSS rules consist of a selector and a declaration block. The selector points to the HTML element, and the declaration block contains one or more declarations with property-value pairs.</p>
-          <pre class="mb-4"><code>h1 { color: blue; font-size: 24px; }</code></pre>
-          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>h1 { color: blue; font-size: 24px; }</style>
-            <h1>Hello, World!</h1>
-          '></iframe>
-        `
-      },
+     "css-syntax": {
+  "title": "CSS Syntax",
+  "content": `
+    <h2 class="text-2xl font-semibold mb-4">CSS Syntax</h2>
+    <p class="mb-4">
+      CSS (Cascading Style Sheets) is used to style HTML elements. A CSS rule consists of a selector and a declaration block.
+    </p>
+    <p class="mb-4">
+      The selector targets the HTML element you want to style. The declaration block contains one or more property-value pairs.
+    </p>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>selector {
+  property: value;
+  property: value;
+}</code></pre>
+    <p class="mb-4">
+      <strong>Example:</strong>
+    </p>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>h1 {
+  color: blue;
+  font-size: 24px;
+}</code></pre>
+    <p class="mb-4">
+      This CSS rule selects all <code>&lt;h1&gt;</code> elements and:
+      <ul class="list-disc pl-5">
+        <li>Changes their text color to <strong>blue</strong></li>
+        <li>Sets the font size to <strong>24 pixels</strong></li>
+      </ul>
+    </p>
+    <p class="mb-2 font-medium">Live Example:</p>
+    <iframe class="w-full h-32 border border-gray-300 rounded mb-4" srcdoc='
+      <style>
+        h1 {
+          color: blue;
+          font-size: 24px;
+        }
+      </style>
+      <h1>Hello, World!</h1>
+    '></iframe>
+    <p class="mb-4"><strong>Tips:</strong> Always end declarations with a semicolon, and use curly braces to group multiple property-value pairs.</p>
+  `
+}
+,
       "css-selectors": {
         title: "CSS Selectors",
         content: `
@@ -145,209 +175,595 @@
         `
       },
       "css-how-to": {
-        title: "CSS How To",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS How To</h2>
-          <p class="mb-4">CSS can be applied via external stylesheets, internal styles, or inline styles. External stylesheets are preferred for maintainability.</p>
-          <pre class="mb-4"><code>&lt;link rel="stylesheet" href="styles.css"&gt;</code></pre>
-        `
-      },
-      "css-comments": {
-        title: "CSS Comments",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Comments</h2>
-          <p class="mb-4">Comments in CSS are written using /* */ and are ignored by browsers.</p>
-          <pre class="mb-4"><code>/* This is a comment */\np { color: green; }</code></pre>
-        `
-      },
-      "css-colors": {
-        title: "CSS Colors",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Colors</h2>
-          <p class="mb-4">Colors can be specified using names, HEX, RGB, or HSL values.</p>
-          <pre class="mb-4"><code>p { color: #ff0000; }\nspan { background-color: rgb(0, 255, 0); }</code></pre>
-          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>p { color: #ff0000; } span { background-color: rgb(0, 255, 0); }</style>
-            <p>Red text</p><span>Green background</span>
-          '></iframe>
-        `
-      },
+  title: "CSS How To",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS How To</h2>
+    <p class="mb-4">CSS can be applied to HTML in three different ways. Each method is used based on the size, structure, and need for maintainability of your project:</p>
+    <ul class="list-disc pl-5 mb-4">
+      <li>
+        <strong>External CSS</strong> – Write styles in a separate <code>.css</code> file. This method is best for large projects and reusability.
+        <br>Example: 
+        <pre class="bg-gray-100 p-2 rounded mt-1"><code>&lt;link rel="stylesheet" href="styles.css"&gt;</code></pre>
+      </li>
+      <li>
+        <strong>Internal CSS</strong> – Write styles inside a <code>&lt;style&gt;</code> tag in the <code>&lt;head&gt;</code> of your HTML.
+        <br>Example:
+        <pre class="bg-gray-100 p-2 rounded mt-1"><code>&lt;style&gt;
+  body {
+    background-color: lightblue;
+  }
+&lt;/style&gt;</code></pre>
+      </li>
+      <li>
+        <strong>Inline CSS</strong> – Add styles directly in the HTML element using the <code>style</code> attribute.
+        <br>Example:
+        <pre class="bg-gray-100 p-2 rounded mt-1"><code>&lt;p style=&quot;color: red;&quot;&gt;This is red text&lt;/p&gt;</code></pre>
+      </li>
+    </ul>
+    <p class="mb-4"><strong>Note:</strong> External CSS is the most recommended approach for scalability and clean code management.</p>
+  `
+}
+,
+     "css-comments": {
+  title: "CSS Comments",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Comments</h2>
+    <p class="mb-4">
+      Comments in CSS help you explain your code and make it more readable. 
+      They are not rendered by browsers and are completely ignored during execution.
+    </p>
+    <p class="mb-4">
+      CSS comments begin with <code>/*</code> and end with <code>*/</code>. You can place them above or beside your rules.
+    </p>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>/* This is a comment */
+p {
+  color: green;
+}</code></pre>
+    <p class="mb-4">
+      You can also use comments to temporarily disable parts of your CSS without deleting them.
+    </p>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>/*
+h1 {
+  color: red;
+}
+*/</code></pre>
+    <p class="mb-4"><strong>Note:</strong> Avoid overusing comments in production code, but do use them to explain tricky parts or organization.</p>
+  `
+}
+,
+     "css-colors": {
+  title: "CSS Colors",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Colors</h2>
+    <p class="mb-4">
+      CSS allows you to set colors in multiple ways for text, backgrounds, borders, and more. The common methods include:
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>Color Names:</strong> Simple color keywords like <code>red</code>, <code>blue</code>, <code>green</code>.</li>
+      <li><strong>HEX Codes:</strong> Six-digit hexadecimal values prefixed with <code>#</code>, e.g., <code>#ff0000</code> for red.</li>
+      <li><strong>RGB Values:</strong> Specify colors by Red, Green, and Blue components, e.g., <code>rgb(255, 0, 0)</code> for red.</li>
+      <li><strong>HSL Values:</strong> Hue, Saturation, and Lightness, e.g., <code>hsl(0, 100%, 50%)</code> for red.</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>p { color: #ff0000; }
+span { background-color: rgb(0, 255, 0); }</code></pre>
+    <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        p { color: #ff0000; }
+        span { background-color: rgb(0, 255, 0); padding: 3px; display: inline-block; }
+      </style>
+      <p>Red text</p>
+      <span>Green background</span>
+    '></iframe>
+    <p class="mb-4"><strong>Tip:</strong> Use HEX or RGB for precise control, and color names for quick styling.</p>
+  `
+}
+,
       "css-backgrounds": {
-        title: "CSS Backgrounds",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Backgrounds</h2>
-          <p class="mb-4">Background properties include color, images, repeat, and position.</p>
-          <pre class="mb-4"><code>div { background: url('image.jpg') no-repeat center; }</code></pre>
-        `
-      },
-      "css-borders": {
-        title: "CSS Borders",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Borders</h2>
-          <p class="mb-4">Borders can be styled with width, style, and color.</p>
-          <pre class="mb-4"><code>div { border: 2px solid black; }</code></pre>
-          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>div { border: 2px solid black; padding: 10px; }</style>
-            <div>Box with border</div>
-          '></iframe>
-        `
-      },
+  title: "CSS Backgrounds",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Backgrounds</h2>
+    <p class="mb-4">
+      Background properties allow you to customize the appearance behind elements, including colors, images, and how images behave.
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>background-color:</strong> Sets a solid color as background.</li>
+      <li><strong>background-image:</strong> Adds an image as background.</li>
+      <li><strong>background-repeat:</strong> Controls if/how a background image repeats (<code>repeat</code>, <code>no-repeat</code>, <code>repeat-x</code>, <code>repeat-y</code>).</li>
+      <li><strong>background-position:</strong> Specifies the starting position of the background image (<code>center</code>, <code>top right</code>, coordinates, etc.).</li>
+      <li><strong>background-size:</strong> Controls the size of the background image (e.g., <code>cover</code>, <code>contain</code>).</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>div {
+  background: url('image.jpg') no-repeat center;
+  background-color: #f0f0f0;
+  background-size: cover;
+}</code></pre>
+    <p class="mb-4"><em>Note:</em> When using images, combining <code>background-color</code> helps in case the image fails to load.</p>
+  `
+}
+,
+     "css-borders": {
+  title: "CSS Borders",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Borders</h2>
+    <p class="mb-4">
+      Borders define the outline around an element. You can customize borders by setting their width, style, and color.
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>border-width:</strong> Thickness of the border (e.g., 1px, 2px).</li>
+      <li><strong>border-style:</strong> Type of border (solid, dashed, dotted, double, none, etc.).</li>
+      <li><strong>border-color:</strong> Color of the border (color names, HEX, RGB, etc.).</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>div {
+  border: 2px solid black;
+}</code></pre>
+    <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        div {
+          border: 2px solid black;
+          padding: 10px;
+          width: fit-content;
+          margin: 10px;
+        }
+      </style>
+      <div>Box with border</div>
+    '></iframe>
+    <p class="mb-4">
+      You can also set borders for specific sides using properties like <code>border-top</code>, <code>border-right</code>, etc.
+    </p>
+  `
+}
+,
       "css-margins": {
-        title: "CSS Margins",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Margins</h2>
-          <p class="mb-4">Margins create space outside elements.</p>
-          <pre class="mb-4"><code>div { margin: 20px; }</code></pre>
-          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>div { margin: 20px; border: 1px solid; }</style>
-            <div>Box with margin</div>
-          '></iframe>
-        `
-      },
+  title: "CSS Margins",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Margins</h2>
+    <p class="mb-4">
+      Margins create space outside an element's border, effectively pushing other elements away.
+      They are useful for controlling the layout and spacing between elements.
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>margin:</strong> Sets margin on all four sides.</li>
+      <li><strong>margin-top, margin-right, margin-bottom, margin-left:</strong> Set margin individually.</li>
+      <li><strong>Shorthand syntax:</strong> You can set margins for all sides using one to four values, e.g., <code>margin: 10px 20px;</code>.</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>div {
+  margin: 20px;
+}</code></pre>
+    <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        div {
+          margin: 20px;
+          border: 1px solid black;
+          width: fit-content;
+          padding: 10px;
+          background-color: #f9f9f9;
+        }
+      </style>
+      <div>Box with margin</div>
+    '></iframe>
+    <p class="mb-4"><strong>Note:</strong> Margins can collapse vertically between adjacent elements, so be aware when spacing stacked elements.</p>
+  `
+}
+,
       "css-padding": {
-        title: "CSS Padding",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Padding</h2>
-          <p class="mb-4">Padding creates space inside elements, between content and border.</p>
-          <pre class="mb-4"><code>div { padding: 15px; border: 1px solid; }</code></pre>
-          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>div { padding: 15px; border: 1px solid; }</style>
-            <div>Box with padding</div>
-          '></iframe>
-        `
-      },
+  title: "CSS Padding",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Padding</h2>
+    <p class="mb-4">
+      Padding is the space between the content of an element and its border. It creates inner spacing within the element.
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>padding:</strong> Sets padding on all four sides.</li>
+      <li><strong>padding-top, padding-right, padding-bottom, padding-left:</strong> Set padding individually.</li>
+      <li><strong>Shorthand syntax:</strong> You can use one to four values to specify padding on different sides.</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>div {
+  padding: 15px;
+  border: 1px solid black;
+}</code></pre>
+    <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        div {
+          padding: 15px;
+          border: 1px solid black;
+          width: fit-content;
+          background-color: #eef6f9;
+        }
+      </style>
+      <div>Box with padding</div>
+    '></iframe>
+    <p class="mb-4">
+      Padding increases the clickable or visible area inside an element without affecting the space outside it.
+    </p>
+  `
+}
+,
       "css-box-model": {
-        title: "CSS Box Model",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Box Model</h2>
-          <p class="mb-4">The box model includes content, padding, border, and margin.</p>
-          <pre class="mb-4"><code>div { width: 200px; padding: 10px; border: 5px solid black; margin: 15px; }</code></pre>
-          <iframe class="w-full h-64 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>div { width: 200px; padding: 10px; border: 5px solid black; margin: 15px; background: lightblue; }</style>
-            <div>Box model example</div>
-          '></iframe>
-        `
-      },
-      "css-text": {
-        title: "CSS Text",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Text</h2>
-          <p class="mb-4">Text properties include alignment, decoration, and transformation.</p>
-          <pre class="mb-4"><code>p { text-align: center; text-decoration: underline; text-transform: uppercase; }</code></pre>
-          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>p { text-align: center; text-decoration: underline; text-transform: uppercase; }</style>
-            <p>Styled text</p>
-          '></iframe>
-        `
-      },
+  title: "CSS Box Model",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Box Model</h2>
+    <p class="mb-4">
+      The CSS Box Model describes how the size of an element is calculated. It consists of four parts:
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>Content:</strong> The actual content like text, images, etc.</li>
+      <li><strong>Padding:</strong> Space between content and border (inside space).</li>
+      <li><strong>Border:</strong> The border surrounding the padding and content.</li>
+      <li><strong>Margin:</strong> Space outside the border that separates the element from others.</li>
+    </ul>
+    <p class="mb-4">The total width and height of an element equals:</p>
+    <p class="mb-4 font-semibold">
+      width + padding (left + right) + border (left + right) + margin (left + right)
+    </p>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>div {
+  width: 200px;
+  padding: 10px;
+  border: 5px solid black;
+  margin: 15px;
+}</code></pre>
+    <iframe class="w-full h-64 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        div {
+          width: 200px;
+          padding: 10px;
+          border: 5px solid black;
+          margin: 15px;
+          background: lightblue;
+        }
+      </style>
+      <div>Box model example</div>
+    '></iframe>
+    <p class="mb-4"><strong>Note:</strong> The <code>box-sizing</code> property can change how the width and height are calculated, commonly set to <code>border-box</code> to include padding and border within the width.</p>
+  `
+}
+,
+     "css-text": {
+  title: "CSS Text",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Text</h2>
+    <p class="mb-4">
+      CSS provides various text properties to control the appearance and formatting of text within elements.
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>text-align:</strong> Aligns text horizontally (left, right, center, justify).</li>
+      <li><strong>text-decoration:</strong> Adds decorations like underline, overline, line-through, or none.</li>
+      <li><strong>text-transform:</strong> Controls capitalization (uppercase, lowercase, capitalize, none).</li>
+      <li><strong>color:</strong> Sets the color of the text.</li>
+      <li><strong>font-family:</strong> Specifies the typeface.</li>
+      <li><strong>line-height:</strong> Adjusts the spacing between lines of text.</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>p {
+  text-align: center;
+  text-decoration: underline;
+  text-transform: uppercase;
+}</code></pre>
+    <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        p {
+          text-align: center;
+          text-decoration: underline;
+          text-transform: uppercase;
+          font-family: Arial, sans-serif;
+          color: #333;
+        }
+      </style>
+      <p>Styled text</p>
+    '></iframe>
+    <p class="mb-4">
+      These properties help improve readability and style of textual content on your web pages.
+    </p>
+  `
+}
+,
       "css-fonts": {
-        title: "CSS Fonts",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Fonts</h2>
-          <p class="mb-4">Font properties control typeface, size, and weight.</p>
-          <pre class="mb-4"><code>p { font-family: Arial; font-size: 18px; font-weight: bold; }</code></pre>
-          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>p { font-family: Arial; font-size: 18px; font-weight: bold; }</style>
-            <p>Styled font</p>
-          '></iframe>
-        `
-      },
-      "css-position": {
-        title: "CSS Position",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Position</h2>
-          <p class="mb-4">Position properties like static, relative, absolute, and fixed control element placement.</p>
-          <pre class="mb-4"><code>div { position: absolute; top: 20px; left: 20px; }</code></pre>
-          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>div { position: absolute; top: 20px; left: 20px; background: lightblue; padding: 10px; }</style>
-            <div>Absolutely positioned</div>
-          '></iframe>
-        `
-      },
+  title: "CSS Fonts",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Fonts</h2>
+    <p class="mb-4">
+      CSS font properties allow you to control the appearance of text by specifying the typeface, size, weight, and more.
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>font-family:</strong> Specifies the typeface or font. You can list fallback fonts separated by commas.</li>
+      <li><strong>font-size:</strong> Sets the size of the font (px, em, rem, %, etc.).</li>
+      <li><strong>font-weight:</strong> Controls the thickness of the text (normal, bold, numbers 100–900).</li>
+      <li><strong>font-style:</strong> Defines style like normal, italic, or oblique.</li>
+      <li><strong>line-height:</strong> Adjusts the space between lines.</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>p {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}</code></pre>
+    <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        p {
+          font-family: Arial, sans-serif;
+          font-size: 18px;
+          font-weight: bold;
+          color: #222;
+        }
+      </style>
+      <p>Styled font</p>
+    '></iframe>
+    <p class="mb-4">
+      Using font properties effectively improves readability and gives personality to your website's text.
+    </p>
+  `
+}
+,
+     "css-position": {
+  title: "CSS Position",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Position</h2>
+    <p class="mb-4">
+      The <code>position</code> property controls how an element is positioned in the document. Common values include:
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>static:</strong> Default position; elements follow normal flow.</li>
+      <li><strong>relative:</strong> Positioned relative to its normal position.</li>
+      <li><strong>absolute:</strong> Positioned relative to the nearest positioned ancestor.</li>
+      <li><strong>fixed:</strong> Positioned relative to the viewport; stays fixed when scrolling.</li>
+      <li><strong>sticky:</strong> Switches between relative and fixed based on scroll position.</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>div {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}</code></pre>
+    <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        div {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          background: lightblue;
+          padding: 10px;
+        }
+      </style>
+      <div>Absolutely positioned</div>
+    '></iframe>
+    <p class="mb-4">
+      Using positioning lets you place elements precisely on the page, but be mindful of how they affect document flow.
+    </p>
+  `
+}
+,
       "css-overflow": {
-        title: "CSS Overflow",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Overflow</h2>
-          <p class="mb-4">Overflow controls what happens when content exceeds an element's size.</p>
-          <pre class="mb-4"><code>div { width: 200px; height: 100px; overflow: auto; }</code></pre>
-          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>div { width: 200px; height: 100px; overflow: auto; border: 1px solid; }</style>
-            <div>Long content that overflows the box and triggers a scrollbar.</div>
-          '></iframe>
-        `
-      },
+  title: "CSS Overflow",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Overflow</h2>
+    <p class="mb-4">
+      The <code>overflow</code> property controls how content that exceeds the size of its container is handled.
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>visible:</strong> Default; content spills outside the container.</li>
+      <li><strong>hidden:</strong> Content is clipped and hidden.</li>
+      <li><strong>scroll:</strong> Scrollbars are always shown, allowing the user to scroll.</li>
+      <li><strong>auto:</strong> Scrollbars appear only if content overflows.</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>div {
+  width: 200px;
+  height: 100px;
+  overflow: auto;
+}</code></pre>
+    <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        div {
+          width: 200px;
+          height: 100px;
+          overflow: auto;
+          border: 1px solid black;
+          padding: 5px;
+          font-family: Arial, sans-serif;
+        }
+      </style>
+      <div>
+        This is a long content that exceeds the height of the box. When overflow is set to <code>auto</code>, a scrollbar will appear to allow scrolling and viewing the hidden content.
+      </div>
+    '></iframe>
+    <p class="mb-4">
+      Using overflow controls ensures your layout remains tidy and usable even when content sizes vary.
+    </p>
+  `
+}
+,
       "css-float": {
-        title: "CSS Float",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Float</h2>
-          <p class="mb-4">Float allows elements to wrap around each other, often used for layouts.</p>
-          <pre class="mb-4"><code>img { float: left; margin-right: 10px; }</code></pre>
-          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>img { float: left; margin-right: 10px; } p { overflow: hidden; }</style>
-            <img src="https://via.placeholder.com/100" alt="Sample"><p>Text wraps around the floated image.</p>
-          '></iframe>
-        `
-      },
+  title: "CSS Float",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Float</h2>
+    <p class="mb-4">
+      The <code>float</code> property allows elements, such as images or divs, to be taken out of the normal flow and positioned to the left or right of their container. Other content will wrap around the floated element.
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>float: left;</strong> floats the element to the left.</li>
+      <li><strong>float: right;</strong> floats the element to the right.</li>
+      <li>Commonly used for layouts, especially text wrapping around images.</li>
+      <li>Clearing floats is important to prevent layout issues (<code>clear</code> property or <code>overflow: hidden;</code> on container).</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>img {
+  float: left;
+  margin-right: 10px;
+}</code></pre>
+    <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        img {
+          float: left;
+          margin-right: 10px;
+          border: 1px solid #ccc;
+        }
+        p {
+          overflow: hidden; /* Clear float */
+          font-family: Arial, sans-serif;
+        }
+      </style>
+      <img src="https://via.placeholder.com/100" alt="Sample">
+      <p>Text wraps around the floated image.</p>
+    '></iframe>
+    <p class="mb-4">
+      Remember to clear floats to avoid container collapse and layout bugs.
+    </p>
+  `
+}
+,
       "css-align": {
-        title: "CSS Align",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Align</h2>
-          <p class="mb-4">Alignment properties like flex and grid make centering content easy.</p>
-          <pre class="mb-4"><code>div { display: flex; justify-content: center; align-items: center; height: 100px; }</code></pre>
-          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>div { display: flex; justify-content: center; align-items: center; height: 100px; border: 1px solid; }</style>
-            <div>Centered content</div>
-          '></iframe>
-        `
-      },
-      "css-combinators": {
-        title: "CSS Combinators",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Combinators</h2>
-          <p class="mb-4">Combinators like descendant, child, and sibling selectors define relationships between elements.</p>
-          <pre class="mb-4"><code>div > p { color: blue; }</code></pre>
-          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>div > p { color: blue; }</style>
-            <div><p>Blue text</p><span><p>Not blue</p></span></div>
-          '></iframe>
-        `
-      },
-      "css-pseudo-classes": {
-        title: "CSS Pseudo-classes",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Pseudo-classes</h2>
-          <p class="mb-4">Pseudo-classes style elements based on their state, like :hover or :focus.</p>
-          <pre class="mb-4"><code>a:hover { color: red; }</code></pre>
-          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>a:hover { color: red; }</style>
-            <a href="#">Hover me</a>
-          '></iframe>
-        `
-      },
-      "css-pseudo-elements": {
-        title: "CSS Pseudo-elements",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Pseudo-elements</h2>
-          <p class="mb-4">Pseudo-elements like ::before and ::after style specific parts of an element.</p>
-          <pre class="mb-4"><code>p::before { content: "★ "; }</code></pre>
-          <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>p::before { content: "★ "; }</style>
-            <p>Star before text</p>
-          '></iframe>
-        `
-      },
-      "css-opacity": {
-        title: "CSS Opacity",
-        content: `
-          <h2 class="text-2xl font-semibold mb-4">CSS Opacity</h2>
-          <p class="mb-4">Opacity controls the transparency of an element, ranging from 0 (transparent) to 1 (opaque).</p>
-          <pre class="mb-4"><code>div { opacity: 0.5; }</code></pre>
-          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>div { opacity: 0.5; background: blue; color: white; padding: 10px; }</style>
-            <div>Semi-transparent box</div>
-          '></iframe>
-        `
-      }
+  title: "CSS Align",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Align</h2>
+    <p class="mb-4">
+      CSS alignment properties, especially with Flexbox and Grid, simplify centering and positioning content horizontally and vertically.
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>display: flex;</strong> activates Flexbox layout.</li>
+      <li><strong>justify-content:</strong> aligns items horizontally (start, center, end, space-between).</li>
+      <li><strong>align-items:</strong> aligns items vertically (start, center, end, stretch).</li>
+      <li>These properties make centering both horizontally and vertically easy.</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}</code></pre>
+    <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100px;
+          border: 1px solid black;
+          font-family: Arial, sans-serif;
+        }
+      </style>
+      <div>Centered content</div>
+    '></iframe>
+  `
+},
+
+"css-combinators": {
+  title: "CSS Combinators",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Combinators</h2>
+    <p class="mb-4">
+      CSS combinators describe relationships between selectors, targeting elements based on hierarchy or sibling relationships.
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>Descendant (space):</strong> selects all descendants (e.g., <code>div p</code>).</li>
+      <li><strong>Child (>):</strong> selects direct children only (e.g., <code>div > p</code>).</li>
+      <li><strong>Adjacent sibling (+):</strong> selects next sibling only.</li>
+      <li><strong>General sibling (~):</strong> selects all following siblings.</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>div > p {
+  color: blue;
+}</code></pre>
+    <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        div > p {
+          color: blue;
+        }
+      </style>
+      <div>
+        <p>Blue text</p>
+        <span><p>Not blue</p></span>
+      </div>
+    '></iframe>
+  `
+},
+
+"css-pseudo-classes": {
+  title: "CSS Pseudo-classes",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Pseudo-classes</h2>
+    <p class="mb-4">
+      Pseudo-classes allow styling elements based on their state or position without adding classes or IDs.
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><code>:hover</code> – when the user hovers over an element.</li>
+      <li><code>:focus</code> – when an element is focused (e.g., input).</li>
+      <li><code>:nth-child(n)</code> – selects the nth child of a parent.</li>
+      <li>Useful for interactive and dynamic styling.</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>a:hover {
+  color: red;
+}</code></pre>
+    <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        a:hover {
+          color: red;
+        }
+        a {
+          font-family: Arial, sans-serif;
+          font-size: 16px;
+          text-decoration: none;
+        }
+      </style>
+      <a href="#">Hover me</a>
+    '></iframe>
+  `
+},
+
+"css-pseudo-elements": {
+  title: "CSS Pseudo-elements",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Pseudo-elements</h2>
+    <p class="mb-4">
+      Pseudo-elements allow you to style specific parts of an element, like before or after its content.
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><code>::before</code> – inserts content before an element's content.</li>
+      <li><code>::after</code> – inserts content after an element's content.</li>
+      <li>Great for adding decorative content without extra HTML.</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>p::before {
+  content: "★ ";
+}</code></pre>
+    <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        p::before {
+          content: "★ ";
+          color: gold;
+        }
+        p {
+          font-family: Arial, sans-serif;
+          font-size: 16px;
+        }
+      </style>
+      <p>Star before text</p>
+    '></iframe>
+  `
+},
+
+"css-opacity": {
+  title: "CSS Opacity",
+  content: `
+    <h2 class="text-2xl font-semibold mb-4">CSS Opacity</h2>
+    <p class="mb-4">
+      The <code>opacity</code> property controls the transparency of an element, with values from 0 (fully transparent) to 1 (fully opaque).
+    </p>
+    <ul class="list-disc pl-5 mb-4">
+      <li><code>opacity: 0;</code> makes an element fully transparent (invisible).</li>
+      <li><code>opacity: 1;</code> means fully visible.</li>
+      <li>Values between 0 and 1 set partial transparency.</li>
+      <li>Opacity affects the entire element including its content.</li>
+    </ul>
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>div {
+  opacity: 0.5;
+}</code></pre>
+    <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        div {
+          opacity: 0.5;
+          background: blue;
+          color: white;
+          padding: 10px;
+          font-family: Arial, sans-serif;
+        }
+      </style>
+      <div>Semi-transparent box</div>
+    '></iframe>
+  `
+}
+
     };
 
     // Sidebar toggle (mobile)

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devvoltz | Professional Web Services</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    .template-card {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 100%;
+      position: relative;
+    }
+    .template-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    .template-card img {
+      height: 180px;
+      object-fit: cover;
+      transition: all 0.3s ease;
+    }
+    .card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .template-card:hover .card-overlay {
+      opacity: 1;
+    }
+    .overlay-btn {
+      margin: 5px;
+      width: 150px;
+    }
+    @media (max-width: 768px) {
+      .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+    #order-forms {
+      margin-top: 30px;
+    }
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Professional Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        <i class="fas fa-bolt me-2"></i>Devvoltz
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <div class="input-group">
+            <input class="form-control" type="search" placeholder="Search templates..." aria-label="Search">
+            <button class="btn btn-primary" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-4 mt-3">
+    <div class="text-center mb-5">
+      <h1 class="display-5 fw-bold mb-3">Custom Web & App Development</h1>
+      <p class="lead text-muted mx-auto" style="max-width: 700px;">
+        Browse our professional templates or request a custom solution tailored to your business needs.
+      </p>
+    </div>
+
+    <!-- Custom Order Button - Sticky at top -->
+    <div class="sticky-top bg-white py-3 shadow-sm mb-4" style="top: 56px; z-index: 1020;">
+      <div class="container">
+        <div class="d-flex justify-content-center">
+          <button 
+            type="button" 
+            class="btn btn-primary btn-lg px-4" 
+            id="btn-custom-order-top"
+            data-bs-toggle="modal" 
+            data-bs-target="#orderModal"
+          >
+            <i class="fas fa-plus-circle me-2"></i>Custom Order
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Templates Grid -->
+    <div class="row" id="templates-container">
+      <!-- Cards added by JS -->
+    </div>
+
+    <!-- Buttons for Selected Template -->
+    <div id="template-actions" class="my-4 text-center" style="display:none;">
+      <button
+        type="button"
+        class="btn btn-primary me-3"
+        id="btn-view-details"
+        data-bs-toggle="modal"
+        data-bs-target="#detailsModal"
+      >
+        View Details
+      </button>
+      <button type="button" class="btn btn-success" id="btn-order-template">
+        Order This Template
+      </button>
+      <button type="button" class="btn btn-outline-secondary ms-3" id="btn-custom-order">
+        Custom Order
+      </button>
+    </div>
+
+    <!-- Order Forms -->
+    <div id="order-forms" class="mx-auto" style="max-width: 600px;">
+      <!-- Step 1 Form -->
+      <form id="form-step1" class="hidden">
+        <h4 class="mb-3">Step 1: Project Details</h4>
+        <div class="mb-3">
+          <label for="order-title" class="form-label">Project Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="order-title"
+            placeholder="Enter project title"
+            required
+          />
+          <div class="form-text">
+            You can edit the pre-filled title or enter a custom title.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Type</label>
+          <select class="form-select" id="order-type" required>
+            <option value="" disabled selected>Select type</option>
+            <option value="Web">Web</option>
+            <option value="App">App</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="order-description" class="form-label">Description / Model</label>
+          <textarea
+            class="form-control"
+            id="order-description"
+            rows="3"
+            placeholder="Describe your project requirements"
+            required
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="order-time" class="form-label">Expected Delivery Time</label>
+          <input
+            type="text"
+            class="form-control"
+            id="order-time"
+            placeholder="e.g., 2 weeks, 1 month"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Next</button>
+      </form>
+
+      <!-- Step 2 Form -->
+      <form id="form-step2" class="hidden">
+        <h4 class="mb-3">Step 2: Your Contact Information</h4>
+
+        <div class="mb-3">
+          <label for="full-name" class="form-label">Full Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="full-name"
+            placeholder="Your full name"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="phone"
+            placeholder="+251 9XXXXXXXX"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label">Address</label>
+          <textarea
+            class="form-control"
+            id="address"
+            rows="2"
+            placeholder="Your address"
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit Order</button>
+      </form>
+
+      <!-- Confirmation Message -->
+      <div id="confirmation" class="alert alert-success hidden mt-4" role="alert">
+        Thank you! Your order has been submitted successfully.
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-5 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h5><i class="fas fa-bolt me-2"></i>Devvoltz</h5>
+          <p class="text-muted">Professional web and app development services tailored to your business needs.</p>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5>Services</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-muted">Web Development</a></li>
+            <li><a href="#" class="text-muted">Mobile Apps</a></li>
+            <li><a href="#" class="text-muted">UI/UX Design</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5>Company</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-muted">About Us</a></li>
+            <li><a href="#" class="text-muted">Portfolio</a></li>
+            <li><a href="#" class="text-muted">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5>Connect</h5>
+          <div class="d-flex gap-3 mb-3">
+            <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+          </div>
+          <p class="text-muted">contact@devvoltz.com</p>
+        </div>
+      </div>
+      <hr class="my-4 bg-secondary">
+      <div class="text-center text-muted">
+        <small>&copy; 2023 Devvoltz. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Unified Order Modal with Steps -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="orderModalLabel">Place Your Order</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Progress Steps -->
+          <ul class="nav nav-pills nav-justified mb-4" id="orderSteps">
+            <li class="nav-item">
+              <a class="nav-link active" id="step1-tab" data-bs-toggle="pill" href="#step1">Order Details</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" id="step2-tab" data-bs-toggle="pill" href="#step2">Contact Info</a>
+            </li>
+          </ul>
+          
+          <div class="tab-content">
+            <!-- Step 1: Order Details -->
+            <div class="tab-pane fade show active" id="step1">
+              <form id="orderDetailsForm">
+                <div class="mb-3">
+                  <label for="projectName" class="form-label">Project Name</label>
+                  <input type="text" class="form-control" id="projectName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="projectType" class="form-label">Project Type</label>
+                  <select class="form-select" id="projectType" required>
+                    <option value="">Select type</option>
+                    <option value="Web">Website</option>
+                    <option value="App">Mobile App</option>
+                    <option value="Both">Both</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="projectDesc" class="form-label">Description</label>
+                  <textarea class="form-control" id="projectDesc" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="deliveryTime" class="form-label">Expected Delivery Time</label>
+                  <select class="form-select" id="deliveryTime" required>
+                    <option value="">Select timeframe</option>
+                    <option value="2 weeks">2 weeks</option>
+                    <option value="3 weeks">3 weeks</option>
+                    <option value="1 month">1 month</option>
+                  </select>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Continue</button>
+                </div>
+              </form>
+            </div>
+            
+            <!-- Step 2: Contact Info -->
+            <div class="tab-pane fade" id="step2">
+              <form id="contactInfoForm">
+                <div class="mb-3">
+                  <label for="fullName" class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="fullName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input type="tel" class="form-control" id="phone" required>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                  <button type="button" class="btn btn-outline-secondary" id="backToStep1">Back</button>
+                  <button type="submit" class="btn btn-success">Submit Order</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Details Modal -->
+  <div
+    class="modal fade"
+    id="detailsModal"
+    tabindex="-1"
+    aria-labelledby="detailsModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detailsModalLabel">Template Details</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body text-center">
+          <h4 id="modal-title"></h4>
+          <img
+            src=""
+            id="modal-image"
+            alt="Template Image"
+            class="img-fluid rounded mb-3"
+            style="max-height: 300px; object-fit: cover;"
+          />
+          <p id="modal-description"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
+  <script>
+    const templates = [
+      {
+        id: 1,
+        title: "E-commerce",
+        description:
+          "An online shopping platform with product listings, cart, checkout, and payment integration.",
+        image:
+          "https://images.unsplash.com/photo-1542831371-d531d36971e6?auto=format&fit=crop&w=800&q=80",
+      },
+      {
+        id: 2,
+        title: "E-learning",
+        description:
+          "A platform for online courses, quizzes, progress tracking, and video lessons.",
+        image:
+          "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80",
+      },
+      {
+        id: 3,
+        title: "Portfolio",
+        description:
+          "A personal website to showcase your work, projects, resume, and contact details.",
+        image:
+          "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+      },
+      {
+        id: 4,
+        title: "Blog",
+        description:
+          "A blogging platform with posts, categories, comments, and user interaction.",
+        image:
+          "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+      },
+      {
+        id: 5,
+        title: "Delivery",
+        description:
+          "A delivery app with real-time tracking, order management, and notifications.",
+        image:
+          "https://images.unsplash.com/photo-1565372915116-3cfb651b5983?auto=format&fit=crop&w=800&q=80",
+      },
+      {
+        id: 6,
+        title: "Hotel and Restaurant",
+        description:
+          "Booking system, menu display, reservation management, and customer reviews.",
+        image:
+          "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      },
+    ];
+
+    const templatesContainer = document.getElementById("templates-container");
+    const templateActions = document.getElementById("template-actions");
+    const btnViewDetails = document.getElementById("btn-view-details");
+    const btnOrderTemplate = document.getElementById("btn-order-template");
+    const btnCustomOrder = document.getElementById("btn-custom-order");
+
+    const formStep1 = document.getElementById("form-step1");
+    const formStep2 = document.getElementById("form-step2");
+    const confirmation = document.getElementById("confirmation");
+
+    const modalTitle = document.getElementById("modal-title");
+    const modalImage = document.getElementById("modal-image");
+    const modalDescription = document.getElementById("modal-description");
+
+    const orderTitleInput = document.getElementById("order-title");
+
+    let selectedTemplate = null;
+
+    // Render templates as Bootstrap cards
+    function renderTemplates() {
+      templates.forEach((template) => {
+        const col = document.createElement("div");
+        col.className = "col-md-4 mb-4";
+
+        const card = document.createElement("div");
+        card.className = "card template-card h-100";
+        card.tabIndex = 0;
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", `Select template ${template.title}`);
+
+        card.innerHTML = `
+          <div class="position-relative">
+            <img src="${template.image}" class="card-img-top" alt="${template.title}"/>
+            <span class="position-absolute top-0 end-0 bg-primary text-white px-2 py-1 m-2 rounded">
+              <i class="fas fa-star me-1"></i>Popular
+            </span>
+            <div class="card-overlay">
+              <button class="btn btn-primary overlay-btn view-detail-btn" data-template-id="${template.id}">
+                <i class="fas fa-eye me-2"></i>View Detail
+              </button>
+              <button class="btn btn-success overlay-btn order-btn" data-template-id="${template.id}">
+                <i class="fas fa-shopping-cart me-2"></i>Order
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title mb-0">${template.title}</h5>
+              <span class="badge bg-success">Web</span>
+            </div>
+            <p class="card-text text-muted">${template.description}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-primary fw-bold">From $299</span>
+            </div>
+          </div>
+        `;
+
+        // On click, select this template and show buttons
+        card.addEventListener("click", () => {
+          selectedTemplate = template;
+          templateActions.style.display = "block";
+          orderTitleInput.value = selectedTemplate.title;
+          // Highlight selected card
+          document.querySelectorAll(".template-card").forEach((c) => {
+            c.classList.remove("border-primary", "border-3");
+          });
+          card.classList.add("border-primary", "border-3");
+          // Hide forms & confirmation
+          formStep1.classList.add("hidden");
+          formStep2.classList.add("hidden");
+          confirmation.classList.add("hidden");
+        });
+
+        col.appendChild(card);
+        templatesContainer.appendChild(col);
+      });
+    }
+
+    renderTemplates();
+
+    // Handle template card button clicks
+    document.addEventListener('click', function(e) {
+      // View Detail button
+      if (e.target.classList.contains('view-detail-btn') || e.target.closest('.view-detail-btn')) {
+        const btn = e.target.classList.contains('view-detail-btn') ? e.target : e.target.closest('.view-detail-btn');
+        const templateId = parseInt(btn.dataset.templateId);
+        const template = templates.find(t => t.id === templateId);
+        
+        if (template) {
+          modalTitle.textContent = template.title;
+          modalImage.src = template.image;
+          modalDescription.textContent = template.description;
+          
+          const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+          detailsModal.show();
+        }
+      }
+      
+      // Order button
+      if (e.target.classList.contains('order-btn') || e.target.closest('.order-btn')) {
+        const btn = e.target.classList.contains('order-btn') ? e.target : e.target.closest('.order-btn');
+        const templateId = parseInt(btn.dataset.templateId);
+        const template = templates.find(t => t.id === templateId);
+        
+        if (template) {
+          document.getElementById('projectName').value = template.title;
+          const orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
+          orderModal.show();
+        }
+      }
+    });
+
+    // Custom Order button from top
+    document.getElementById('btn-custom-order-top').addEventListener('click', function() {
+      document.getElementById('projectName').value = '';
+      const orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
+      orderModal.show();
+    });
+
+    // Handle order form steps
+    document.getElementById('orderDetailsForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('step1-tab').classList.remove('active');
+      document.getElementById('step2-tab').classList.add('active');
+      document.getElementById('step1').classList.remove('show', 'active');
+      document.getElementById('step2').classList.add('show', 'active');
+      document.getElementById('step2-tab').classList.remove('disabled');
+    });
+
+    document.getElementById('backToStep1').addEventListener('click', function() {
+      document.getElementById('step2-tab').classList.remove('active');
+      document.getElementById('step1-tab').classList.add('active');
+      document.getElementById('step2').classList.remove('show', 'active');
+      document.getElementById('step1').classList.add('show', 'active');
+    });
+
+    document.getElementById('contactInfoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Order submitted successfully!');
+      const orderModal = bootstrap.Modal.getInstance(document.getElementById('orderModal'));
+      orderModal.hide();
+      this.reset();
+      document.getElementById('orderDetailsForm').reset();
+      // Reset to step 1
+      document.getElementById('step2-tab').classList.remove('active');
+      document.getElementById('step1-tab').classList.add('active');
+      document.getElementById('step2').classList.remove('show', 'active');
+      document.getElementById('step1').classList.add('show', 'active');
+      document.getElementById('step2-tab').classList.add('disabled');
+    });
+
+    // Pre-fill form when ordering from template
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('order-btn') || e.target.closest('.order-btn')) {
+        const btn = e.target.classList.contains('order-btn') ? e.target : e.target.closest('.order-btn');
+        const templateId = parseInt(btn.dataset.templateId);
+        const template = templates.find(t => t.id === templateId);
+        
+        if (template) {
+          document.getElementById('projectName').value = template.title;
+          document.getElementById('projectDesc').value = template.description;
+        }
+      }
+    });
+
+    // Original View Details button (keeping for backward compatibility)
+    btnViewDetails.addEventListener("click", () => {
+      if (!selectedTemplate) return;
+      modalTitle.textContent = selectedTemplate.title;
+      modalImage.src = selectedTemplate.image;
+      modalDescription.textContent = selectedTemplate.description;
+    });
+
+    // Order This Template button opens Step 1 form
+    btnOrderTemplate.addEventListener("click", () => {
+      if (!selectedTemplate) return;
+      formStep1.classList.remove("hidden");
+      formStep2.classList.add("hidden");
+      confirmation.classList.add("hidden");
+      orderTitleInput.value = selectedTemplate.title;
+      window.scrollTo({ top: formStep1.offsetTop - 50, behavior: "smooth" });
+    });
+
+    // Custom Order button opens Step 1 form with empty title
+    btnCustomOrder.addEventListener("click", () => {
+      selectedTemplate = null;
+      formStep1.classList.remove("hidden");
+      formStep2.classList.add("hidden");
+      confirmation.classList.add("hidden");
+      orderTitleInput.value = "";
+      window.scrollTo({ top: formStep1.offsetTop - 50, behavior: "smooth" });
+      // Remove card highlights
+      document.querySelectorAll(".template-card").forEach((c) => {
+        c.classList.remove("border-primary", "border-3");
+      });
+      templateActions.style.display = "none";
+    });
+
+    // Handle Step 1 submission
+    formStep1.addEventListener("submit", (e) => {
+      e.preventDefault();
+      // Basic validation handled by required fields
+
+      // Hide step 1, show step 2
+      formStep1.classList.add("hidden");
+      formStep2.classList.remove("hidden");
+      confirmation.classList.add("hidden");
+      window.scrollTo({ top: formStep2.offsetTop - 50, behavior: "smooth" });
+    });
+
+    // Handle Step 2 submission
+    formStep2.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // Collect data from both forms
+      const orderData = {
+        title: orderTitleInput.value.trim(),
+        type: document.getElementById("order-type").value,
+        description: document.getElementById("order-description").value.trim(),
+        time: document.getElementById("order-time").value.trim(),
+        fullName: document.getElementById("full-name").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        address: document.getElementById("address").value.trim(),
+      };
+
+      // Simple console log — here you could send to a backend or API
+      console.log("Order submitted:", orderData);
+
+      // Hide forms, show confirmation
+      formStep1.classList.add("hidden");
+      formStep2.classList.add("hidden");
+      confirmation.classList.remove("hidden");
+      window.scrollTo({ top: confirmation.offsetTop - 50, behavior: "smooth" });
+
+      // Reset all forms after submission
+      formStep1.reset();
+      formStep2.reset();
+      templateActions.style.display = "none";
+      selectedTemplate = null;
+      // Remove card highlights
+      document.querySelectorAll(".template-card").forEach((c) => {
+        c.classList.remove("border-primary", "border-3");
+      });
+    });
+  </script>
+</body>
+</html>
