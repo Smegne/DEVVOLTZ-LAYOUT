@@ -1,53 +1,875 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>JavaScript Course - E-Learn</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-
-  <div class="container mt-5 pt-4">
-    <h2 class="text-primary">JavaScript Tutorial</h2>
-    <hr />
-
-    <div class="lesson mb-5">
-      <h4>Lesson 1: Introduction to JavaScript</h4>
-      <p>This is a beginner-level lesson for learning JavaScript on the E-Learn platform.</p>
-
-      <div class="bg-light border rounded p-3 mb-3">
-        <strong>Example:</strong>
-        <pre><code>// Your first JavaScript example will appear here</code></pre>
-      </div>
-
-      <button class="btn btn-primary mb-3" onclick="showOutput()">Try It Live</button>
-      <iframe id="liveEditor" class="w-100" height="200"></iframe>
-    </div>
-
-    <a href="#" class="btn btn-outline-primary">Next Lesson &raquo;</a>
-  </div>
-
-  <script>
-    function showOutput() {
-      const code = `// Output preview for JavaScript`;
-      const iframe = document.getElementById("liveEditor").contentWindow.document;
-      iframe.open();
-      iframe.write(code);
-      iframe.close();
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Devvoltz js Tutorial</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const lessonKey = "lesson-javascript-1";
-      localStorage.setItem(lessonKey, true);
+    pre {
+      background-color: #f3f4f6;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+    }
 
-      const progress = document.getElementById("progress");
-      if (progress) {
-        const completed = Object.keys(localStorage).filter(k => k.startsWith("lesson-")).length;
-        progress.innerText = "Lessons Completed: " + completed;
+    #sidebar {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    #sidebar a {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.375rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #sidebar a:hover {
+      background-color: #1e40af;
+      color: #ffffff;
+      transform: translateX(5px);
+    }
+
+    #sidebar a.active {
+      background-color: #3b82f6;
+      font-weight: bold;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      #sidebar {
+        transform: translateX(-100%);
       }
-    });
-  </script>
 
+      #sidebar.open {
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-900 text-white p-4 overflow-y-auto md:transform-none z-50">
+    <h2 class="text-xl font-bold mb-4">JavaScript Tutorial</h2>
+    <div class="mt-6">
+      <h3 class="font-semibold mb-2">JS Topics</h3>
+     <ul class="space-y-1 text-sm" id="sidebar-links"> 
+  <li><a href="#js-home" class="text-gray-300 block">JS HOME</a></li>
+  <li><a href="#js-introduction" class="text-gray-300 block">JS Introduction</a></li>
+  <li><a href="#js-where-to" class="text-gray-300 block">JS Where To</a></li>
+  <li><a href="#js-output" class="text-gray-300 block">JS Output</a></li>
+  <li><a href="#js-statements" class="text-gray-300 block">JS Statements</a></li>
+  <li><a href="#js-syntax" class="text-gray-300 block">JS Syntax</a></li>
+  <li><a href="#js-comments" class="text-gray-300 block">JS Comments</a></li>
+  <li><a href="#js-variables" class="text-gray-300 block">JS Variables</a></li>
+  <li><a href="#js-let" class="text-gray-300 block">JS Let</a></li>
+  <li><a href="#js-const" class="text-gray-300 block">JS Const</a></li>
+  <li><a href="#js-operators" class="text-gray-300 block">JS Operators</a></li>
+  <li><a href="#js-arithmetic" class="text-gray-300 block">JS Arithmetic</a></li>
+  <li><a href="#js-assignment" class="text-gray-300 block">JS Assignment</a></li>
+  <li><a href="#js-data-types" class="text-gray-300 block">JS Data Types</a></li>
+  <li><a href="#js-functions" class="text-gray-300 block">JS Functions</a></li>
+  <li><a href="#js-objects" class="text-gray-300 block">JS Objects</a></li>
+  <li><a href="#js-object-properties" class="text-gray-300 block">JS Object Properties</a></li>
+  <li><a href="#js-object-methods" class="text-gray-300 block">JS Object Methods</a></li>
+  <li><a href="#js-object-display" class="text-gray-300 block">JS Object Display</a></li>
+  <li><a href="#js-object-constructors" class="text-gray-300 block">JS Object Constructors</a></li>
+  <li><a href="#js-events" class="text-gray-300 block">JS Events</a></li>
+  <li><a href="#js-strings" class="text-gray-300 block">JS Strings</a></li>
+  <li><a href="#js-string-methods" class="text-gray-300 block">JS String Methods</a></li>
+  <li><a href="#js-string-search" class="text-gray-300 block">JS String Search</a></li>
+  <li><a href="#js-string-templates" class="text-gray-300 block">JS String Templates</a></li>
+  <li><a href="#js-numbers" class="text-gray-300 block">JS Numbers</a></li>
+  <li><a href="#js-bigint" class="text-gray-300 block">JS BigInt</a></li>
+  <li><a href="#js-number-methods" class="text-gray-300 block">JS Number Methods</a></li>
+  <li><a href="#js-number-properties" class="text-gray-300 block">JS Number Properties</a></li>
+  <li><a href="#js-arrays" class="text-gray-300 block">JS Arrays</a></li>
+  <li><a href="#js-array-methods" class="text-gray-300 block">JS Array Methods</a></li>
+  <li><a href="#js-array-search" class="text-gray-300 block">JS Array Search</a></li>
+  <li><a href="#js-array-sort" class="text-gray-300 block">JS Array Sort</a></li>
+  <li><a href="#js-array-iteration" class="text-gray-300 block">JS Array Iteration</a></li>
+  <li><a href="#js-array-const" class="text-gray-300 block">JS Array Const</a></li>
+  <li><a href="#js-dates" class="text-gray-300 block">JS Dates</a></li>
+  <li><a href="#js-date-formats" class="text-gray-300 block">JS Date Formats</a></li>
+  <li><a href="#js-date-get-methods" class="text-gray-300 block">JS Date Get Methods</a></li>
+  <li><a href="#js-date-set-methods" class="text-gray-300 block">JS Date Set Methods</a></li>
+  <li><a href="#js-math" class="text-gray-300 block">JS Math</a></li>
+  <li><a href="#js-random" class="text-gray-300 block">JS Random</a></li>
+  <li><a href="#js-booleans" class="text-gray-300 block">JS Booleans</a></li>
+  <li><a href="#js-comparisons" class="text-gray-300 block">JS Comparisons</a></li>
+  <li><a href="#js-if-else" class="text-gray-300 block">JS If Else</a></li>
+  <li><a href="#js-switch" class="text-gray-300 block">JS Switch</a></li>
+  <li><a href="#js-loop-for" class="text-gray-300 block">JS Loop For</a></li>
+  <li><a href="#js-loop-for-in" class="text-gray-300 block">JS Loop For In</a></li>
+  <li><a href="#js-loop-for-of" class="text-gray-300 block">JS Loop For Of</a></li>
+  <li><a href="#js-loop-while" class="text-gray-300 block">JS Loop While</a></li>
+  <li><a href="#js-break" class="text-gray-300 block">JS Break</a></li>
+  <li><a href="#js-sets" class="text-gray-300 block">JS Sets</a></li>
+  <li><a href="#js-set-methods" class="text-gray-300 block">JS Set Methods</a></li>
+  <li><a href="#js-set-logic" class="text-gray-300 block">JS Set Logic</a></li>
+  <li><a href="#js-maps" class="text-gray-300 block">JS Maps</a></li>
+  <li><a href="#js-map-methods" class="text-gray-300 block">JS Map Methods</a></li>
+  <li><a href="#js-typed-arrays" class="text-gray-300 block">JS Typed Arrays</a></li>
+  <li><a href="#js-typed-methods" class="text-gray-300 block">JS Typed Methods</a></li>
+  <li><a href="#js-iterables" class="text-gray-300 block">JS Iterables</a></li>
+  <li><a href="#js-iterators" class="text-gray-300 block">JS Iterators</a></li>
+  <li><a href="#js-typeof" class="text-gray-300 block">JS typeof</a></li>
+  <li><a href="#js-tostring" class="text-gray-300 block">JS toString()</a></li>
+  <li><a href="#js-type-conversion" class="text-gray-300 block">JS Type Conversion</a></li>
+  <li><a href="#js-destructuring" class="text-gray-300 block">JS Destructuring</a></li>
+  <li><a href="#js-bitwise" class="text-gray-300 block">JS Bitwise</a></li>
+  <li><a href="#js-regexp" class="text-gray-300 block">JS RegExp</a></li>
+  <li><a href="#js-precedence" class="text-gray-300 block">JS Precedence</a></li>
+  <li><a href="#js-errors" class="text-gray-300 block">JS Errors</a></li>
+  <li><a href="#js-scope" class="text-gray-300 block">JS Scope</a></li>
+  <li><a href="#js-hoisting" class="text-gray-300 block">JS Hoisting</a></li>
+  <li><a href="#js-strict-mode" class="text-gray-300 block">JS Strict Mode</a></li>
+  <li><a href="#js-this-keyword" class="text-gray-300 block">JS this Keyword</a></li>
+  <li><a href="#js-arrow-function" class="text-gray-300 block">JS Arrow Function</a></li>
+  <li><a href="#js-classes" class="text-gray-300 block">JS Classes</a></li>
+  <li><a href="#js-modules" class="text-gray-300 block">JS Modules</a></li>
+  <li><a href="#js-json" class="text-gray-300 block">JS JSON</a></li>
+  <li><a href="#js-debugging" class="text-gray-300 block">JS Debugging</a></li>
+  <li><a href="#js-style-guide" class="text-gray-300 block">JS Style Guide</a></li>
+  <li><a href="#js-best-practices" class="text-gray-300 block">JS Best Practices</a></li>
+  <li><a href="#js-mistakes" class="text-gray-300 block">JS Mistakes</a></li>
+  <li><a href="#js-performance" class="text-gray-300 block">JS Performance</a></li>
+  <li><a href="#js-reserved-words" class="text-gray-300 block">JS Reserved Words</a></li>
+</ul>
+ 
+    </div>
+    <button id="close-sidebar" class="md:hidden mt-4 bg-red-600 px-4 py-2 rounded-md">Close</button>
+  </aside>
+
+  <!-- Mobile Toggle Button -->
+  <button id="open-sidebar" class="md:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-md">
+    ☰ Menu
+  </button>
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white py-6 md:ml-64">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold">Introduction to JavaScript</h1>
+      <p class="mt-2">Learn the essentials of javascript programming  in web pages  Devvoltz platform.</p>
+    </div>
+  </header>
+
+ <!-- Main Content -->
+<main class="container mx-auto px-4 py-8 md:ml-64 space-y-12" id="main-content">
+  <section class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200" id="welcome">
+    <!-- Heading -->
+    <h2 class="text-3xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+      <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M5 4v16h14V4H5zm13 1v2H6V5h12zM6 8h12v11H6V8z"/>
+      </svg>
+      Welcome to JavaScript
+    </h2>
+
+    <!-- Intro Paragraph -->
+    <p class="text-gray-700 mb-4 leading-relaxed">
+      <span class="font-semibold text-blue-800">JavaScript</span> is the most widely used programming language for web development. 
+      This tutorial will guide you through key JavaScript concepts with practical examples.
+    </p>
+
+    <!-- What is JavaScript -->
+    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-6">
+      <h3 class="text-xl font-semibold text-blue-800 mb-2">📌 What is JavaScript?</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-1">
+        <li>JavaScript is a <strong>programming language</strong> that brings interactivity to web pages.</li>
+        <li>It can update and change both HTML and CSS content dynamically.</li>
+        <li>Runs directly in the browser and does not require compilation.</li>
+        <li>JavaScript code is typically written in <code class="bg-gray-100 px-1 rounded text-sm text-blue-800">.js</code> files.</li>
+      </ul>
+    </div>
+
+    <!-- Why Use JavaScript -->
+    <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-6">
+      <h3 class="text-xl font-semibold text-green-800 mb-2">💡 Why Use JavaScript?</h3>
+      <p class="text-gray-700 leading-relaxed">
+        JavaScript adds logic and behavior to your web pages. It allows you to create dynamic content, handle events, validate forms, and build rich web applications.
+      </p>
+    </div>
+
+    <!-- JavaScript Example -->
+    <div class="bg-gray-100 p-4 rounded-lg border border-gray-300 mb-6">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">🧪 JavaScript Example:</h3>
+      <pre class="bg-black text-green-300 p-4 rounded-md text-sm overflow-x-auto">
+<code>
+document.getElementById("demo").innerHTML = "Hello JavaScript!";
+</code>
+      </pre>
+      <p class="text-sm mt-2 text-gray-600">You can try this in an HTML page with an element like <code>&lt;p id="demo"&gt;&lt;/p&gt;</code>.</p>
+    </div>
+
+    <!-- Try it -->
+    <div class="text-center mt-8">
+      <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full shadow transition">
+        🎯 Try It Yourself
+      </a>
+    </div>
+
+    <!-- Navigation Prompt -->
+    <p class="text-gray-600 mt-6 text-center">📚 Select a topic from the sidebar to begin learning!</p>
+  </section>
+</main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-4 mt-8 md:ml-64">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2025 Devvoltz Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Topic content data
+    const topicContents = {
+  
+  "js-tutorial": {
+    title: "JS Tutorial",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Tutorial</h2>
+      <p>Welcome to the complete JavaScript tutorial. Learn everything from basics to advanced topics.</p>
+    `
+  },
+  "js-home": {
+    title: "JS HOME",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Home</h2>
+      <p>This section introduces you to JavaScript and its importance in web development.</p>
+    `
+  },
+  "js-introduction": {
+    title: "JS Introduction",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Introduction</h2>
+      <p>JavaScript is a programming language used to make web pages interactive.</p>
+    `
+  },
+  "js-where-to": {
+    title: "JS Where To",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Where to Use JavaScript</h2>
+      <p>JavaScript can be embedded in HTML files or linked externally with .js files.</p>
+    `
+  },
+  "js-output": {
+    title: "JS Output",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Output</h2>
+      <p>JavaScript outputs data using methods like <code>console.log()</code>, <code>alert()</code>, and manipulating HTML elements.</p>
+    `
+  },
+  "js-statements": {
+    title: "JS Statements",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Statements</h2>
+      <p>A JavaScript statement is a command to be executed, such as declaring variables or calling functions.</p>
+    `
+  },
+  "js-syntax": {
+    title: "JS Syntax",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Syntax</h2>
+      <p>JavaScript syntax defines how programs are written — including variables, functions, and expressions.</p>
+    `
+  },
+  "js-comments": {
+    title: "JS Comments",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Comments</h2>
+      <p>Comments explain code and are ignored by the browser. Use <code>//</code> for single-line and <code>/* */</code> for multi-line comments.</p>
+    `
+  },
+  "js-variables": {
+    title: "JS Variables",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Variables</h2>
+      <p>Variables store data values. Declare them using <code>let</code>, <code>const</code>, or <code>var</code>.</p>
+    `
+  },
+  "js-let": {
+    title: "JS Let",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Let</h2>
+      <p><code>let</code> declares block-scoped variables that can be reassigned.</p>
+    `
+  },
+  "js-const": {
+    title: "JS Const",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Const</h2>
+      <p><code>const</code> declares block-scoped constants that cannot be reassigned.</p>
+    `
+  },
+  "js-operators": {
+    title: "JS Operators",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Operators</h2>
+      <p>Operators perform operations on variables and values, like arithmetic or comparison.</p>
+    `
+  },
+  // ... continue for the remaining topics
+  
+
+
+
+  "js-arithmetic": {
+    title: "JS Arithmetic",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Arithmetic</h2>
+      <p>JavaScript supports arithmetic operations like addition, subtraction, multiplication, and division.</p>
+    `
+  },
+  "js-assignment": {
+    title: "JS Assignment",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Assignment</h2>
+      <p>Assignment operators assign values to variables, like <code>=</code>, <code>+=</code>, <code>-=</code>, etc.</p>
+    `
+  },
+  "js-data-types": {
+    title: "JS Data Types",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Data Types</h2>
+      <p>JavaScript has several data types including strings, numbers, booleans, objects, and undefined.</p>
+    `
+  },
+  "js-functions": {
+    title: "JS Functions",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Functions</h2>
+      <p>Functions are reusable blocks of code designed to perform a task.</p>
+    `
+  },
+  "js-objects": {
+    title: "JS Objects",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Objects</h2>
+      <p>Objects are collections of properties and methods that represent real-world entities.</p>
+    `
+  },
+  "js-object-properties": {
+    title: "JS Object Properties",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Object Properties</h2>
+      <p>Properties are values associated with an object and can be accessed or modified.</p>
+    `
+  },
+  "js-object-methods": {
+    title: "JS Object Methods",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Object Methods</h2>
+      <p>Methods are functions stored as object properties and define behaviors.</p>
+    `
+  },
+  "js-object-display": {
+    title: "JS Object Display",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Object Display</h2>
+      <p>Display object properties and methods in the console or on a webpage.</p>
+    `
+  },
+  "js-object-constructors": {
+    title: "JS Object Constructors",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Object Constructors</h2>
+      <p>Constructors are special functions for creating new objects with similar properties.</p>
+    `
+  },
+  "js-events": {
+    title: "JS Events",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Events</h2>
+      <p>Events represent user actions like clicks or key presses that JavaScript can respond to.</p>
+    `
+  },
+  "js-strings": {
+    title: "JS Strings",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Strings</h2>
+      <p>Strings are sequences of characters used to represent text.</p>
+    `
+  },
+  "js-string-methods": {
+    title: "JS String Methods",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS String Methods</h2>
+      <p>JavaScript provides built-in methods to manipulate strings like <code>slice()</code>, <code>replace()</code>, and <code>toUpperCase()</code>.</p>
+    `
+  },
+  "js-string-search": {
+    title: "JS String Search",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS String Search</h2>
+      <p>Use methods like <code>indexOf()</code> and <code>search()</code> to find substrings.</p>
+    `
+  },
+  "js-string-templates": {
+    title: "JS String Templates",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS String Templates</h2>
+      <p>Template literals use backticks <code>\` \`</code> and allow embedded expressions with <code>\${}</code>.</p>
+    `
+  },
+  "js-numbers": {
+    title: "JS Numbers",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Numbers</h2>
+      <p>Numbers include integers and floating-point values used in calculations.</p>
+    `
+  },
+  "js-bigint": {
+    title: "JS BigInt",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript BigInt</h2>
+      <p>BigInt allows representation of integers larger than the safe integer limit for Numbers.</p>
+    `
+  },
+  "js-number-methods": {
+    title: "JS Number Methods",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Number Methods</h2>
+      <p>Methods like <code>toFixed()</code> and <code>toPrecision()</code> format numbers.</p>
+    `
+  },
+  "js-number-properties": {
+    title: "JS Number Properties",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Number Properties</h2>
+      <p>Properties such as <code>MAX_VALUE</code> and <code>MIN_VALUE</code> represent limits of number values.</p>
+    `
+  },
+  "js-arrays": {
+    title: "JS Arrays",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Arrays</h2>
+      <p>Arrays are ordered collections of values accessed by index.</p>
+    `
+  },
+  "js-array-methods": {
+    title: "JS Array Methods",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Array Methods</h2>
+      <p>Common array methods include <code>push()</code>, <code>pop()</code>, <code>map()</code>, and <code>filter()</code>.</p>
+    `
+  },
+  "js-array-search": {
+    title: "JS Array Search",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Array Search</h2>
+      <p>Methods like <code>indexOf()</code> and <code>find()</code> help locate elements.</p>
+    `
+  },
+  "js-array-sort": {
+    title: "JS Array Sort",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Array Sort</h2>
+      <p>Use <code>sort()</code> to order array elements alphabetically or numerically.</p>
+    `
+  },
+  "js-array-iteration": {
+    title: "JS Array Iteration",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Array Iteration</h2>
+      <p>Loops like <code>for</code> and <code>forEach()</code> iterate over array elements.</p>
+    `
+  },
+  "js-array-const": {
+    title: "JS Array Const",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Array Const</h2>
+      <p>Arrays declared with <code>const</code> cannot be reassigned, but their contents can be modified.</p>
+    `
+  },
+  "js-dates": {
+    title: "JS Dates",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Dates</h2>
+      <p>The <code>Date</code> object represents dates and times, and provides methods to manipulate them.</p>
+    `
+  },
+  "js-date-formats": {
+    title: "JS Date Formats",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Date Formats</h2>
+      <p>Format dates using methods like <code>toLocaleDateString()</code> and <code>toISOString()</code>.</p>
+    `
+  },
+  "js-date-get-methods": {
+    title: "JS Date Get Methods",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Date Get Methods</h2>
+      <p>Use getters like <code>getFullYear()</code>, <code>getMonth()</code>, and <code>getDate()</code> to extract parts of a date.</p>
+    `
+  },
+  "js-date-set-methods": {
+    title: "JS Date Set Methods",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Date Set Methods</h2>
+      <p>Set date components with <code>setFullYear()</code>, <code>setMonth()</code>, and <code>setDate()</code>.</p>
+    `
+  },
+  "js-math": {
+    title: "JS Math",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Math</h2>
+      <p>The <code>Math</code> object provides properties and methods for mathematical constants and functions.</p>
+    `
+  },
+  "js-random": {
+    title: "JS Random",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Random</h2>
+      <p>Generate random numbers with <code>Math.random()</code>, often combined with rounding functions.</p>
+    `
+  },
+  "js-booleans": {
+    title: "JS Booleans",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Booleans</h2>
+      <p>Booleans represent logical entities and can be <code>true</code> or <code>false</code>.</p>
+    `
+  },
+  "js-comparisons": {
+    title: "JS Comparisons",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Comparisons</h2>
+      <p>Comparison operators like <code>==</code>, <code>===</code>, <code>&gt;</code>, and <code>&lt;</code> compare values.</p>
+    `
+  },
+  "js-if-else": {
+    title: "JS If Else",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS If Else</h2>
+      <p>Control program flow using <code>if</code>, <code>else if</code>, and <code>else</code> statements.</p>
+    `
+  },
+  "js-switch": {
+    title: "JS Switch",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Switch</h2>
+      <p>Use <code>switch</code> statements to select one of many code blocks to execute.</p>
+    `
+  },
+  "js-loop-for": {
+    title: "JS Loop For",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Loop For</h2>
+      <p>The <code>for</code> loop repeats code a specific number of times.</p>
+    `
+  },
+  "js-loop-for-in": {
+    title: "JS Loop For In",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Loop For In</h2>
+      <p><code>for...in</code> loops iterate over the enumerable properties of an object.</p>
+    `
+  },
+  "js-loop-for-of": {
+    title: "JS Loop For Of",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Loop For Of</h2>
+      <p><code>for...of</code> loops iterate over iterable objects like arrays or strings.</p>
+    `
+  },
+  "js-loop-while": {
+    title: "JS Loop While",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Loop While</h2>
+      <p><code>while</code> loops repeat code while a condition is true.</p>
+    `
+  },
+  "js-break": {
+    title: "JS Break",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Break</h2>
+      <p>The <code>break</code> statement exits a loop or <code>switch</code> block prematurely.</p>
+    `
+  },
+  "js-sets": {
+    title: "JS Sets",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Sets</h2>
+      <p>Sets are collections of unique values.</p>
+    `
+  },
+  "js-set-methods": {
+    title: "JS Set Methods",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Set Methods</h2>
+      <p>Common Set methods include <code>add()</code>, <code>delete()</code>, and <code>has()</code>.</p>
+    `
+  },
+  "js-set-logic": {
+    title: "JS Set Logic",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Set Logic</h2>
+      <p>Perform set operations like union, intersection, and difference using JavaScript Sets.</p>
+    `
+  },
+  "js-maps": {
+    title: "JS Maps",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Maps</h2>
+      <p>Maps store key-value pairs where keys can be any data type.</p>
+    `
+  },
+  "js-map-methods": {
+    title: "JS Map Methods",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Map Methods</h2>
+      <p>Common Map methods include <code>set()</code>, <code>get()</code>, and <code>has()</code>.</p>
+    `
+  }
+  ,
+  
+  // Previous topics...
+
+  "js-typed-arrays": {
+    title: "JS Typed Arrays",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Typed Arrays</h2>
+      <p>Typed Arrays provide a way to work with binary data efficiently in JavaScript.</p>
+    `
+  },
+  "js-typed-methods": {
+    title: "JS Typed Methods",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Typed Methods</h2>
+      <p>Typed Arrays support methods like <code>set()</code>, <code>subarray()</code>, and <code>buffer</code> access.</p>
+    `
+  },
+  "js-iterables": {
+    title: "JS Iterables",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Iterables</h2>
+      <p>An iterable is an object that implements the <code>Symbol.iterator</code> method, enabling iteration.</p>
+    `
+  },
+  "js-iterators": {
+    title: "JS Iterators",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Iterators</h2>
+      <p>Iterators are objects that provide a <code>next()</code> method to traverse through data.</p>
+    `
+  },
+  "js-typeof": {
+    title: "JS typeof",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS typeof</h2>
+      <p>The <code>typeof</code> operator returns a string indicating the type of a variable or expression.</p>
+    `
+  },
+  "js-tostring": {
+    title: "JS toString()",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS toString()</h2>
+      <p>The <code>toString()</code> method converts values to their string representation.</p>
+    `
+  },
+  "js-type-conversion": {
+    title: "JS Type Conversion",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Type Conversion</h2>
+      <p>JavaScript performs type coercion automatically; explicit conversion can be done with <code>Number()</code>, <code>String()</code>, etc.</p>
+    `
+  },
+  "js-destructuring": {
+    title: "JS Destructuring",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Destructuring</h2>
+      <p>Destructuring allows unpacking values from arrays or properties from objects into distinct variables.</p>
+    `
+  },
+  "js-bitwise": {
+    title: "JS Bitwise",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Bitwise</h2>
+      <p>Bitwise operators work on 32-bit integers to perform operations like AND, OR, XOR, NOT, shifts.</p>
+    `
+  },
+  "js-regexp": {
+    title: "JS RegExp",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS RegExp</h2>
+      <p>Regular expressions provide powerful pattern matching and text searching functionality.</p>
+    `
+  },
+  "js-precedence": {
+    title: "JS Precedence",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Precedence</h2>
+      <p>Operator precedence determines the order in which operations are performed in expressions.</p>
+    `
+  },
+  "js-errors": {
+    title: "JS Errors",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Errors</h2>
+      <p>Errors can be caught and handled using <code>try...catch</code> blocks and custom error objects.</p>
+    `
+  },
+  "js-scope": {
+    title: "JS Scope",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Scope</h2>
+      <p>Scope defines the visibility and lifetime of variables and functions in the code.</p>
+    `
+  },
+  "js-hoisting": {
+    title: "JS Hoisting",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Hoisting</h2>
+      <p>JavaScript hoists declarations to the top of their scope, affecting variable and function behavior.</p>
+    `
+  },
+  "js-strict-mode": {
+    title: "JS Strict Mode",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Strict Mode</h2>
+      <p>Strict mode enforces stricter parsing and error handling in your JavaScript code.</p>
+    `
+  },
+  "js-this-keyword": {
+    title: "JS this Keyword",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS this Keyword</h2>
+      <p><code>this</code> refers to the context object from which a function was called.</p>
+    `
+  },
+  "js-arrow-function": {
+    title: "JS Arrow Function",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Arrow Function</h2>
+      <p>Arrow functions provide a concise syntax and lexically bind <code>this</code>.</p>
+    `
+  },
+  "js-classes": {
+    title: "JS Classes",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Classes</h2>
+      <p>Classes are syntactic sugar over prototypes for creating objects and handling inheritance.</p>
+    `
+  },
+  "js-modules": {
+    title: "JS Modules",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Modules</h2>
+      <p>Modules allow encapsulation and reuse of code across files using <code>import</code> and <code>export</code>.</p>
+    `
+  },
+  "js-json": {
+    title: "JS JSON",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS JSON</h2>
+      <p>JSON (JavaScript Object Notation) is a lightweight data-interchange format easy to read and write.</p>
+    `
+  },
+  "js-debugging": {
+    title: "JS Debugging",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Debugging</h2>
+      <p>Use browser dev tools, <code>console.log()</code>, breakpoints, and debuggers to find and fix issues.</p>
+    `
+  },
+  "js-style-guide": {
+    title: "JS Style Guide",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Style Guide</h2>
+      <p>Follow consistent coding styles for readability and maintainability.</p>
+    `
+  },
+  "js-best-practices": {
+    title: "JS Best Practices",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Best Practices</h2>
+      <p>Write clean, efficient, and secure JavaScript by following best practices.</p>
+    `
+  },
+  "js-mistakes": {
+    title: "JS Mistakes",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Mistakes</h2>
+      <p>Common pitfalls include improper variable scoping, forgetting <code>break</code> in <code>switch</code>, and async mistakes.</p>
+    `
+  },
+  "js-performance": {
+    title: "JS Performance",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Performance</h2>
+      <p>Optimize JavaScript code to improve speed and reduce memory usage.</p>
+    `
+  },
+  "js-reserved-words": {
+    title: "JS Reserved Words",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JS Reserved Words</h2>
+      <p>Certain words are reserved in JavaScript and cannot be used as variable or function names.</p>
+    `
+  }
+
+
+
+};
+
+    // Sidebar toggle (mobile)
+    document.getElementById('open-sidebar').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.add('open');
+    });
+
+    document.getElementById('close-sidebar').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+    });
+
+    // Sidebar link click handler
+    document.querySelectorAll('#sidebar-links a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const topicId = link.getAttribute('href').substring(1);
+        loadTopicContent(topicId);
+
+        // Update active state
+        document.querySelectorAll('#sidebar-links a').forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+
+        // Close sidebar on mobile after clicking
+        document.getElementById('sidebar').classList.remove('open');
+      });
+    });
+
+    function loadTopicContent(topicId) {
+      const mainContent = document.getElementById('main-content');
+      const topic = topicContents[topicId];
+      if (topic) {
+        mainContent.innerHTML = `
+          <section class="bg-white p-6 rounded-lg shadow-md">
+            ${topic.content}
+            <button onclick="document.getElementById('main-content').innerHTML = document.getElementById('welcome').outerHTML" 
+                    class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+              Back to Welcome
+            </button>
+          </section>
+        `;
+      } else {
+        mainContent.innerHTML = `
+          <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Topic Not Found</h2>
+            <p>No content available for this topic.</p>
+            <button onclick="document.getElementById('main-content').innerHTML = document.getElementById('welcome').outerHTML" 
+                    class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+              Back to Welcome
+            </button>
+          </section>
+        `;
+      }
+    }
+  </script>
 </body>
 </html>
