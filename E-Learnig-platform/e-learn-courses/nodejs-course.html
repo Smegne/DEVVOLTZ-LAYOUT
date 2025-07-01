@@ -1,53 +1,771 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>NodeJS Course - E-Learn</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-
-  <div class="container mt-5 pt-4">
-    <h2 class="text-primary">NodeJS Tutorial</h2>
-    <hr />
-
-    <div class="lesson mb-5">
-      <h4>Lesson 1: Introduction to NodeJS</h4>
-      <p>This is a beginner-level lesson for learning NodeJS on the E-Learn platform.</p>
-
-      <div class="bg-light border rounded p-3 mb-3">
-        <strong>Example:</strong>
-        <pre><code>// Your first NodeJS example will appear here</code></pre>
-      </div>
-
-      <button class="btn btn-primary mb-3" onclick="showOutput()">Try It Live</button>
-      <iframe id="liveEditor" class="w-100" height="200"></iframe>
-    </div>
-
-    <a href="#" class="btn btn-outline-primary">Next Lesson &raquo;</a>
-  </div>
-
-  <script>
-    function showOutput() {
-      const code = `// Output preview for NodeJS`;
-      const iframe = document.getElementById("liveEditor").contentWindow.document;
-      iframe.open();
-      iframe.write(code);
-      iframe.close();
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Devvoltz node js Tutorial</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const lessonKey = "lesson-nodejs-1";
-      localStorage.setItem(lessonKey, true);
+    pre {
+      background-color: #f3f4f6;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+    }
 
-      const progress = document.getElementById("progress");
-      if (progress) {
-        const completed = Object.keys(localStorage).filter(k => k.startsWith("lesson-")).length;
-        progress.innerText = "Lessons Completed: " + completed;
+    #sidebar {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    #sidebar a {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.375rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #sidebar a:hover {
+      background-color: #1e40af;
+      color: #ffffff;
+      transform: translateX(5px);
+    }
+
+    #sidebar a.active {
+      background-color: #3b82f6;
+      font-weight: bold;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      #sidebar {
+        transform: translateX(-100%);
       }
-    });
-  </script>
 
+      #sidebar.open {
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-900 text-white p-4 overflow-y-auto md:transform-none z-50">
+    <h2 class="text-xl font-bold mb-4">Node js Tutorial</h2>
+    <div class="mt-6">
+      <h3 class="font-semibold mb-2">Node js Topics</h3>
+<ul class="space-y-1 text-sm" id="sidebar-links">
+  <!-- Node.js Introduction -->
+  <li><a href="#node-home" class="text-gray-300 block">Node HOME</a></li>
+  <li><a href="#node-intro" class="text-gray-300 block">Node Intro</a></li>
+  <li><a href="#node-get-started" class="text-gray-300 block">Node Get Started</a></li>
+  <li><a href="#node-js-requirements" class="text-gray-300 block">Node JS Requirements</a></li>
+  <li><a href="#node-vs-browser" class="text-gray-300 block">Node.js vs Browser</a></li>
+  <li><a href="#node-cmd-line" class="text-gray-300 block">Node Cmd Line</a></li>
+  <li><a href="#node-v8-engine" class="text-gray-300 block">Node V8 Engine</a></li>
+  <li><a href="#node-architecture" class="text-gray-300 block">Node Architecture</a></li>
+  <li><a href="#node-event-loop" class="text-gray-300 block">Node Event Loop</a></li>
+
+  <!-- Async Handling -->
+  <li><a href="#node-async" class="text-gray-300 block">Node Async</a></li>
+  <li><a href="#node-promises" class="text-gray-300 block">Node Promises</a></li>
+  <li><a href="#node-async-await" class="text-gray-300 block">Node Async/Await</a></li>
+  <li><a href="#node-error-handling" class="text-gray-300 block">Node Errors Handling</a></li>
+
+  <!-- Modules & NPM -->
+  <li><a href="#node-modules" class="text-gray-300 block">Node Modules</a></li>
+  <li><a href="#node-es-modules" class="text-gray-300 block">Node ES Modules</a></li>
+  <li><a href="#node-npm" class="text-gray-300 block">Node NPM</a></li>
+  <li><a href="#node-package-json" class="text-gray-300 block">Node package.json</a></li>
+  <li><a href="#node-npm-scripts" class="text-gray-300 block">Node NPM Scripts</a></li>
+  <li><a href="#node-manage-dep" class="text-gray-300 block">Node Manage Dep</a></li>
+  <li><a href="#node-publish-packages" class="text-gray-300 block">Node Publish Packages</a></li>
+
+  <!-- Core Modules -->
+  <li><a href="#node-http" class="text-gray-300 block">HTTP Module</a></li>
+  <li><a href="#node-https" class="text-gray-300 block">HTTPS Module</a></li>
+  <li><a href="#node-fs" class="text-gray-300 block">File System (fs)</a></li>
+  <li><a href="#node-path" class="text-gray-300 block">Path Module</a></li>
+  <li><a href="#node-os" class="text-gray-300 block">OS Module</a></li>
+  <li><a href="#node-url" class="text-gray-300 block">URL Module</a></li>
+  <li><a href="#node-events" class="text-gray-300 block">Events Module</a></li>
+  <li><a href="#node-stream" class="text-gray-300 block">Stream Module</a></li>
+  <li><a href="#node-buffer" class="text-gray-300 block">Buffer Module</a></li>
+  <li><a href="#node-crypto" class="text-gray-300 block">Crypto Module</a></li>
+  <li><a href="#node-timers" class="text-gray-300 block">Timers Module</a></li>
+  <li><a href="#node-dns" class="text-gray-300 block">DNS Module</a></li>
+  <li><a href="#node-assert" class="text-gray-300 block">Assert Module</a></li>
+  <li><a href="#node-util" class="text-gray-300 block">Util Module</a></li>
+  <li><a href="#node-readline" class="text-gray-300 block">Readline Module</a></li>
+
+  <!-- JS & TS Features -->
+  <li><a href="#node-es6" class="text-gray-300 block">Node ES6+</a></li>
+  <li><a href="#node-process" class="text-gray-300 block">Node Process</a></li>
+  <li><a href="#node-typescript" class="text-gray-300 block">Node TypeScript</a></li>
+  <li><a href="#node-adv-typescript" class="text-gray-300 block">Node Adv. TypeScript</a></li>
+  <li><a href="#node-lint" class="text-gray-300 block">Node Lint & Formatting</a></li>
+
+  <!-- Application Building -->
+  <li><a href="#node-frameworks" class="text-gray-300 block">Node Frameworks</a></li>
+  <li><a href="#express-js" class="text-gray-300 block">Express.js</a></li>
+  <li><a href="#middleware" class="text-gray-300 block">Middleware Concept</a></li>
+  <li><a href="#rest-api" class="text-gray-300 block">REST API Design</a></li>
+  <li><a href="#api-auth" class="text-gray-300 block">API Authentication</a></li>
+  <li><a href="#frontend-integration" class="text-gray-300 block">Node.js with Frontend</a></li>
+
+  <!-- MySQL Integration -->
+  <li><a href="#mysql-get-started" class="text-gray-300 block">MySQL Get Started</a></li>
+  <li><a href="#mysql-create-db" class="text-gray-300 block">MySQL Create Database</a></li>
+  <li><a href="#mysql-create-table" class="text-gray-300 block">MySQL Create Table</a></li>
+  <li><a href="#mysql-insert" class="text-gray-300 block">MySQL Insert Into</a></li>
+  <li><a href="#mysql-select" class="text-gray-300 block">MySQL Select From</a></li>
+  <li><a href="#mysql-where" class="text-gray-300 block">MySQL Where</a></li>
+  <li><a href="#mysql-order-by" class="text-gray-300 block">MySQL Order By</a></li>
+  <li><a href="#mysql-delete" class="text-gray-300 block">MySQL Delete</a></li>
+  <li><a href="#mysql-drop-table" class="text-gray-300 block">MySQL Drop Table</a></li>
+  <li><a href="#mysql-update" class="text-gray-300 block">MySQL Update</a></li>
+  <li><a href="#mysql-limit" class="text-gray-300 block">MySQL Limit</a></li>
+  <li><a href="#mysql-join" class="text-gray-300 block">MySQL Join</a></li>
+
+  <!-- MongoDB Integration -->
+  <li><a href="#mongodb-get-started" class="text-gray-300 block">MongoDB Get Started</a></li>
+  <li><a href="#mongodb-create-db" class="text-gray-300 block">MongoDB Create DB</a></li>
+  <li><a href="#mongodb-collection" class="text-gray-300 block">MongoDB Collection</a></li>
+  <li><a href="#mongodb-insert" class="text-gray-300 block">MongoDB Insert</a></li>
+  <li><a href="#mongodb-find" class="text-gray-300 block">MongoDB Find</a></li>
+  <li><a href="#mongodb-query" class="text-gray-300 block">MongoDB Query</a></li>
+  <li><a href="#mongodb-sort" class="text-gray-300 block">MongoDB Sort</a></li>
+  <li><a href="#mongodb-delete" class="text-gray-300 block">MongoDB Delete</a></li>
+  <li><a href="#mongodb-drop-collection" class="text-gray-300 block">MongoDB Drop Collection</a></li>
+  <li><a href="#mongodb-update" class="text-gray-300 block">MongoDB Update</a></li>
+  <li><a href="#mongodb-limit" class="text-gray-300 block">MongoDB Limit</a></li>
+  <li><a href="#mongodb-join" class="text-gray-300 block">MongoDB Join</a></li>
+
+  <!-- Communication -->
+  <li><a href="#graphql" class="text-gray-300 block">GraphQL</a></li>
+  <li><a href="#socket-io" class="text-gray-300 block">Socket.IO</a></li>
+  <li><a href="#websockets" class="text-gray-300 block">WebSockets</a></li>
+
+  <!-- Testing & Debugging -->
+  <li><a href="#debugging" class="text-gray-300 block">Node Adv. Debugging</a></li>
+  <li><a href="#testing" class="text-gray-300 block">Node Testing Apps</a></li>
+  <li><a href="#test-frameworks" class="text-gray-300 block">Node Test Frameworks</a></li>
+  <li><a href="#test-runner" class="text-gray-300 block">Node Test Runner</a></li>
+
+  <!-- Deployment -->
+  <li><a href="#env-vars" class="text-gray-300 block">Node Env Variables</a></li>
+  <li><a href="#dev-vs-prod" class="text-gray-300 block">Node Dev vs Prod</a></li>
+  <li><a href="#ci-cd" class="text-gray-300 block">Node CI/CD</a></li>
+  <li><a href="#node-security" class="text-gray-300 block">Node Security</a></li>
+  <li><a href="#deployment" class="text-gray-300 block">Node Deployment</a></li>
+
+  <!-- Performance -->
+  <li><a href="#node-logging" class="text-gray-300 block">Node Logging</a></li>
+  <li><a href="#node-monitoring" class="text-gray-300 block">Node Monitoring</a></li>
+  <li><a href="#node-performance" class="text-gray-300 block">Node Performance</a></li>
+  <li><a href="#child-process" class="text-gray-300 block">Child Process Module</a></li>
+  <li><a href="#cluster" class="text-gray-300 block">Cluster Module</a></li>
+  <li><a href="#worker-threads" class="text-gray-300 block">Worker Threads</a></li>
+
+  <!-- Advanced Node -->
+  <li><a href="#microservices" class="text-gray-300 block">Microservices</a></li>
+  <li><a href="#webassembly" class="text-gray-300 block">Node WebAssembly</a></li>
+  <li><a href="#http2" class="text-gray-300 block">HTTP2 Module</a></li>
+  <li><a href="#perf-hooks" class="text-gray-300 block">Perf_hooks Module</a></li>
+  <li><a href="#vm" class="text-gray-300 block">VM Module</a></li>
+  <li><a href="#tls" class="text-gray-300 block">TLS/SSL Module</a></li>
+  <li><a href="#net" class="text-gray-300 block">Net Module</a></li>
+  <li><a href="#zlib" class="text-gray-300 block">Zlib Module</a></li>
+  <li><a href="#real-examples" class="text-gray-300 block">Real-World Examples</a></li>
+
+  <!-- Hardware & IoT -->
+  <li><a href="#raspi-start" class="text-gray-300 block">RasPi Get Started</a></li>
+  <li><a href="#raspi-gpio" class="text-gray-300 block">RasPi GPIO Introduction</a></li>
+  <li><a href="#raspi-blink" class="text-gray-300 block">RasPi Blinking LED</a></li>
+  <li><a href="#raspi-button" class="text-gray-300 block">RasPi LED & Pushbutton</a></li>
+  <li><a href="#raspi-flow" class="text-gray-300 block">RasPi Flowing LEDs</a></li>
+  <li><a href="#raspi-ws" class="text-gray-300 block">RasPi WebSocket</a></li>
+  <li><a href="#raspi-rgb" class="text-gray-300 block">RasPi RGB LED WebSocket</a></li>
+  <li><a href="#raspi-components" class="text-gray-300 block">RasPi Components</a></li>
+
+  <!-- Reference -->
+  <li><a href="#ref-builtins" class="text-gray-300 block">Built-in Modules</a></li>
+  <li><a href="#ref-eventemitter" class="text-gray-300 block">EventEmitter (events)</a></li>
+  <li><a href="#ref-worker" class="text-gray-300 block">Worker (cluster)</a></li>
+  <li><a href="#ref-cipher" class="text-gray-300 block">Cipher (crypto)</a></li>
+  <li><a href="#ref-socket" class="text-gray-300 block">Socket (net, tls, dgram)</a></li>
+  <li><a href="#ref-server" class="text-gray-300 block">Server (http, https)</a></li>
+  <li><a href="#ref-request" class="text-gray-300 block">Request (http)</a></li>
+  <li><a href="#ref-response" class="text-gray-300 block">Response (http)</a></li>
+
+  <!-- Tools -->
+  <li><a href="#tools-compiler" class="text-gray-300 block">Node.js Compiler</a></li>
+  <li><a href="#tools-server" class="text-gray-300 block">Node.js Server</a></li>
+  <li><a href="#tools-quiz" class="text-gray-300 block">Node.js Quiz</a></li>
+  <li><a href="#tools-exercises" class="text-gray-300 block">Node.js Exercises</a></li>
+  <li><a href="#tools-syllabus" class="text-gray-300 block">Node.js Syllabus</a></li>
+  <li><a href="#tools-study" class="text-gray-300 block">Node.js Study Plan</a></li>
+  <li><a href="#tools-certificate" class="text-gray-300 block">Node.js Certificate</a></li>
+</ul>
+
+ 
+    </div>
+    <button id="close-sidebar" class="md:hidden mt-4 bg-red-600 px-4 py-2 rounded-md">Close</button>
+  </aside>
+
+  <!-- Mobile Toggle Button -->
+  <button id="open-sidebar" class="md:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-md">
+    ☰ Menu
+  </button>
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white py-6 md:ml-64">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold">Introduction to Node js</h1>
+      <p class="mt-2">Learn the essentials of node js programming  in web pages  Devvoltz platform.</p>
+    </div>
+  </header>
+
+ <!-- Main Content -->
+<main class="container mx-auto px-4 py-8 md:ml-64 space-y-12" id="main-content">
+  <section class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200" id="welcome">
+    <!-- Heading -->
+    <h2 class="text-3xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+      <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M5 4v16h14V4H5zm13 1v2H6V5h12zM6 8h12v11H6V8z"/>
+      </svg>
+      Welcome to Node js
+    </h2>
+
+   <!-- Intro Paragraph -->
+<p class="text-gray-700 mb-4 leading-relaxed">
+  <span class="font-semibold text-green-800">Node.js</span> is a powerful runtime environment that lets you run JavaScript on the server side.
+  This tutorial will guide you through essential Node.js concepts with practical examples.
+</p>
+
+<!-- What is Node.js -->
+<div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-6">
+  <h3 class="text-xl font-semibold text-green-800 mb-2">📌 What is Node.js?</h3>
+  <ul class="list-disc pl-6 text-gray-700 space-y-1">
+    <li>Node.js is a <strong>JavaScript runtime</strong> built on Chrome's V8 JavaScript engine.</li>
+    <li>It allows you to run JavaScript code outside the browser — on the server.</li>
+    <li>Commonly used for building scalable network applications, APIs, and backend services.</li>
+    <li>Node.js files typically use the <code class="bg-gray-100 px-1 rounded text-sm text-green-800">.js</code> extension.</li>
+  </ul>
+</div>
+
+<!-- Why Use Node.js -->
+<div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h3 class="text-xl font-semibold text-blue-800 mb-2">💡 Why Use Node.js?</h3>
+  <p class="text-gray-700 leading-relaxed">
+    Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. It's perfect for data-intensive real-time applications that run across distributed devices.
+  </p>
+</div>
+
+<!-- Node.js Example -->
+<div class="bg-gray-100 p-4 rounded-lg border border-gray-300 mb-6">
+  <h3 class="text-xl font-semibold text-gray-800 mb-2">🧪 Node.js Example:</h3>
+  <pre class="bg-black text-green-300 p-4 rounded-md text-sm overflow-x-auto">
+<code>
+// Save this as app.js and run with: node app.js
+const http = require('http');
+
+http.createServer((req, res) => {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello Node.js!');
+}).listen(3000);
+</code>
+  </pre>
+  <p class="text-sm mt-2 text-gray-600">To run this code, install Node.js and use the terminal command: <code>node app.js</code></p>
+</div>
+
+<!-- Try it -->
+<div class="text-center mt-8">
+  <a href="#" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-full shadow transition">
+    🚀 Try Node.js
+  </a>
+</div>
+
+<!-- Navigation Prompt -->
+<p class="text-gray-600 mt-6 text-center">📚 Select a topic from the sidebar to begin learning Node.js!</p>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-4 mt-8 md:ml-64">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2025 Devvoltz Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Topic content data
+const topicContents = {
+  "node-home": {
+    title: "Node HOME",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Node.js Home</h2>
+      <p>Welcome to the Node.js tutorial. Learn backend JavaScript from basics to advanced.</p>
+    `
+  },
+  "node-intro": {
+    title: "Node Intro",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Introduction to Node.js</h2>
+      <p>Node.js is a runtime environment that lets you run JavaScript outside the browser, typically for backend development.</p>
+    `
+  },
+  "node-get-started": {
+    title: "Node Get Started",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Getting Started with Node.js</h2>
+      <p>To begin, install Node.js from the official website and try running <code>node</code> in your terminal.</p>
+    `
+  },
+  "node-js-requirements": {
+    title: "Node JS Requirements",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Node.js Requirements</h2>
+      <p>You need basic JavaScript knowledge and access to a terminal to get started with Node.js.</p>
+    `
+  },
+  "node-vs-browser": {
+    title: "Node.js vs Browser",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Node.js vs Browser</h2>
+      <p>Unlike browsers, Node.js allows access to the file system and server functionalities.</p>
+    `
+  },
+  "node-cmd-line": {
+    title: "Node Cmd Line",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Node Command Line</h2>
+      <p>Use <code>node filename.js</code> to run scripts. REPL (Read-Eval-Print Loop) is also available for testing code interactively.</p>
+    `
+  },
+  "node-v8-engine": {
+    title: "Node V8 Engine",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Node V8 Engine</h2>
+      <p>Node.js runs JavaScript using Google’s V8 engine, the same engine used by Chrome.</p>
+    `
+  },
+  "node-architecture": {
+    title: "Node Architecture",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Node.js Architecture</h2>
+      <p>Node.js uses a single-threaded event loop with non-blocking I/O to handle concurrent operations efficiently.</p>
+    `
+  },
+  "node-event-loop": {
+    title: "Node Event Loop",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Node Event Loop</h2>
+      <p>The event loop handles asynchronous operations in Node.js, allowing non-blocking code execution.</p>
+    `
+  },
+
+  // Asynchronous
+  "node-async": {
+    title: "Node Async",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Asynchronous JavaScript</h2>
+      <p>Asynchronous code runs in the background without blocking the main thread. Node uses callbacks, promises, and async/await.</p>
+    `
+  },
+  "node-promises": {
+    title: "Node Promises",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">JavaScript Promises in Node.js</h2>
+      <p>Promises are used to handle asynchronous operations with a cleaner syntax than callbacks.</p>
+    `
+  },
+  "node-async-await": {
+    title: "Node Async/Await",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Async/Await in Node.js</h2>
+      <p>Async/await provides a way to write asynchronous code that looks synchronous, improving readability.</p>
+    `
+  },
+  "node-errors-handling": {
+    title: "Node Errors Handling",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Error Handling in Node.js</h2>
+      <p>Use try/catch with async/await or handle errors using callbacks and error-first conventions.</p>
+    `
+  },
+
+  // Module Basics
+  "node-modules": {
+    title: "Node Modules",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Node Modules</h2>
+      <p>Modules help organize code. Use <code>require()</code> for CommonJS and <code>import</code> for ES modules.</p>
+    `
+  },
+  "node-es-modules": {
+    title: "Node ES Modules",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">ES Modules in Node</h2>
+      <p>Use <code>import</code> and <code>export</code> in <code>.mjs</code> files or enable ES modules in <code>package.json</code>.</p>
+    `
+  },
+  "node-npm": {
+    title: "Node NPM",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">NPM (Node Package Manager)</h2>
+      <p>NPM is used to install, manage, and publish Node.js packages.</p>
+    `
+  },
+  "node-package-json": {
+    title: "Node package.json",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">package.json</h2>
+      <p>This file contains metadata about the project and dependencies.</p>
+    `
+  },
+  "node-npm-scripts": {
+    title: "Node NPM Scripts",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">NPM Scripts</h2>
+      <p>Define custom commands like <code>npm start</code> or <code>npm test</code> in <code>package.json</code>.</p>
+    `
+  },
+  "node-manage-dep": {
+    title: "Managing Dependencies",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Dependency Management</h2>
+      <p>Use <code>npm install</code>, <code>npm uninstall</code>, and <code>npm update</code> to manage packages.</p>
+    `
+  },
+  "node-publish-packages": {
+    title: "Publishing Packages",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Publishing Packages</h2>
+      <p>Use <code>npm publish</code> to share your Node.js modules with the world.</p>
+    `
+  },
+
+  // Core Modules
+  "node-http": {
+    title: "HTTP Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">HTTP Module</h2>
+      <p>The built-in <code>http</code> module allows Node.js to transfer data over the HTTP protocol.</p>
+      <pre class="bg-gray-800 text-green-300 p-4 rounded"><code>
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  res.end('Hello from Node.js HTTP Server');
+});
+
+server.listen(3000);
+      </code></pre>
+    `
+  },
+  "node-fs": {
+    title: "File System (fs) Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">File System Module</h2>
+      <p>The <code>fs</code> module enables interacting with the file system.</p>
+      <pre class="bg-gray-800 text-green-300 p-4 rounded"><code>
+const fs = require('fs');
+
+fs.readFile('example.txt', 'utf8', (err, data) => {
+  if (err) throw err;
+  console.log(data);
+});
+      </code></pre>
+    `
+  },
+
+  "node-http-module": {
+    title: "HTTP Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">HTTP Module</h2>
+      <p>The HTTP module allows Node.js to transfer data over the Hyper Text Transfer Protocol.</p>
+      <p>It can create web servers and handle HTTP requests and responses.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+const http = require('http');
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World\\n');
+});
+server.listen(3000, () => {
+  console.log('Server running at http://localhost:3000/');
+});
+      </code></pre>
+    `
+  },
+
+  "node-https-module": {
+    title: "HTTPS Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">HTTPS Module</h2>
+      <p>The HTTPS module provides HTTP secure server capabilities, supporting SSL/TLS encryption.</p>
+      <p>It requires certificates to set up encrypted communication.</p>
+    `
+  },
+
+  "node-fs-module": {
+    title: "File System (fs) Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">File System (fs) Module</h2>
+      <p>The fs module allows interaction with the file system: reading, writing, updating, deleting files.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+// Asynchronous read
+const fs = require('fs');
+fs.readFile('example.txt', 'utf8', (err, data) => {
+  if (err) throw err;
+  console.log(data);
+});
+      </code></pre>
+    `
+  },
+
+  "node-path-module": {
+    title: "Path Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Path Module</h2>
+      <p>The path module provides utilities for working with file and directory paths.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+const path = require('path');
+const fullPath = path.join(__dirname, 'files', 'example.txt');
+console.log(fullPath);
+      </code></pre>
+    `
+  },
+
+  "node-os-module": {
+    title: "OS Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">OS Module</h2>
+      <p>The OS module provides operating system-related utility methods and properties.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+const os = require('os');
+console.log('OS platform:', os.platform());
+console.log('CPU cores:', os.cpus().length);
+console.log('Free memory:', os.freemem());
+      </code></pre>
+    `
+  },
+
+  "node-url-module": {
+    title: "URL Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">URL Module</h2>
+      <p>The URL module provides utilities to parse and format URLs.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+const url = require('url');
+const myUrl = new URL('https://example.com:8000/path/name?query=string#hash');
+console.log(myUrl.hostname); // 'example.com'
+console.log(myUrl.pathname); // '/path/name'
+console.log(myUrl.searchParams.get('query')); // 'string'
+      </code></pre>
+    `
+  },
+
+  "node-events-module": {
+    title: "Events Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Events Module</h2>
+      <p>The Events module allows handling and creating custom events in Node.js.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+const EventEmitter = require('events');
+const emitter = new EventEmitter();
+
+emitter.on('messageLogged', (arg) => {
+  console.log('Listener called', arg);
+});
+
+emitter.emit('messageLogged', { id: 1, url: 'http://' });
+      </code></pre>
+    `
+  },
+
+  "node-stream-module": {
+    title: "Stream Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Stream Module</h2>
+      <p>Streams allow reading or writing data piece by piece, which is memory efficient for large data.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+const fs = require('fs');
+const readable = fs.createReadStream('file.txt', { encoding: 'utf8' });
+
+readable.on('data', (chunk) => {
+  console.log('Received chunk:', chunk);
+});
+      </code></pre>
+    `
+  },
+
+  "node-buffer-module": {
+    title: "Buffer Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Buffer Module</h2>
+      <p>Buffers handle raw binary data in Node.js, useful for TCP streams, file operations, etc.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+const buf = Buffer.from('Hello World');
+console.log(buf.toString()); // 'Hello World'
+      </code></pre>
+    `
+  },
+
+  "node-crypto-module": {
+    title: "Crypto Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Crypto Module</h2>
+      <p>The Crypto module provides cryptographic functionality, including hashing, signing, and encryption.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+const crypto = require('crypto');
+const hash = crypto.createHash('sha256').update('password').digest('hex');
+console.log(hash);
+      </code></pre>
+    `
+  },
+
+  "node-timers-module": {
+    title: "Timers Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Timers Module</h2>
+      <p>Timers provide methods like <code>setTimeout</code>, <code>setInterval</code> for scheduling code execution.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+setTimeout(() => {
+  console.log('Executed after 2 seconds');
+}, 2000);
+      </code></pre>
+    `
+  },
+
+
+
+  "node-dns-module": {
+    title: "DNS Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">DNS Module</h2>
+      <p>The DNS module contains functions to perform DNS queries and name resolution.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+const dns = require('dns');
+
+dns.lookup('example.com', (err, address, family) => {
+  if (err) throw err;
+  console.log('Address:', address);
+  console.log('Family:', family);
+});
+      </code></pre>
+    `
+  },
+
+  "node-assert-module": {
+    title: "Assert Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Assert Module</h2>
+      <p>The Assert module provides simple assertion testing utilities for verifying invariants.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+const assert = require('assert');
+
+assert.strictEqual(1 + 1, 2, 'Math is broken!');
+      </code></pre>
+    `
+  },
+
+  "node-util-module": {
+    title: "Util Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Util Module</h2>
+      <p>The Util module provides utility functions for debugging, formatting, and promisifying.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+const util = require('util');
+
+const callbackFunc = (a, b, cb) => cb(null, a + b);
+const promiseFunc = util.promisify(callbackFunc);
+
+promiseFunc(1, 2).then(console.log);  // Outputs: 3
+      </code></pre>
+    `
+  },
+
+  "node-readline-module": {
+    title: "Readline Module",
+    content: `
+      <h2 class="text-2xl font-semibold mb-4">Readline Module</h2>
+      <p>The Readline module provides an interface for reading data from a Readable stream (such as process.stdin) one line at a time.</p>
+      <pre class="bg-gray-100 p-3 rounded mb-4"><code>
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('What is your name? ', (answer) => {
+  console.log('Hello, ' + answer);
+  rl.close();
+});
+      </code></pre>
+    `
+  }
+
+
+
+
+};
+
+ document.getElementById('open-sidebar').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.add('open');
+    });
+
+    document.getElementById('close-sidebar').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+    });
+
+    // Sidebar link click handler
+    document.querySelectorAll('#sidebar-links a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const topicId = link.getAttribute('href').substring(1);
+        loadTopicContent(topicId);
+
+        // Update active state 
+        document.querySelectorAll('#sidebar-links a').forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+
+        // Close sidebar on mobile after clicking
+        document.getElementById('sidebar').classList.remove('open');
+      });
+    });
+
+    function loadTopicContent(topicId) {
+      const mainContent = document.getElementById('main-content');
+      const topic = topicContents[topicId];
+      if (topic) {
+        mainContent.innerHTML = `
+          <section class="bg-white p-6 rounded-lg shadow-md">
+            ${topic.content}
+            <button onclick="document.getElementById('main-content').innerHTML = document.getElementById('welcome').outerHTML" 
+                    class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+              Back to Welcome
+            </button>
+          </section>
+        `;
+      } else {
+        mainContent.innerHTML = `
+          <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Topic Not Found</h2>
+            <p>No content available for this topic.</p>
+            <button onclick="document.getElementById('main-content').innerHTML = document.getElementById('welcome').outerHTML" 
+                    class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+              Back to Welcome
+            </button>
+          </section>
+        `;
+      }
+    }
+  </script>
 </body>
 </html>
