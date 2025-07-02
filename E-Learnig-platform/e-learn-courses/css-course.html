@@ -221,11 +221,11 @@ p {
   `
 }
 ,
-      "css-selectors": {
-        title: "CSS Selectors",
-        content: `
+    "css-selectors": {
+  title: "CSS Selectors",
+  content: `
 
-        <section class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 space-y-6" id="css-selectors">
+            <section class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 space-y-6" id="css-selectors">
   <h2 class="text-3xl font-bold text-blue-900">🎯 CSS Selectors</h2>
   <p class="text-gray-700">
     A <strong>CSS selector</strong> selects the HTML element(s) you want to style. CSS selectors are used to "find" the HTML elements you want to style.
@@ -308,6 +308,64 @@ h1, h2, p {
     </code></pre>
   </div>
 
+  <div class="space-y-4">
+    <h3 class="text-2xl font-semibold text-gray-800">🔹 Pseudo-class Selectors</h3>
+    <p class="text-gray-700">A pseudo-class styles elements based on their <strong>state or user interaction</strong>, like hover, focus, or checked.</p>
+    <pre class="bg-gray-900 text-green-300 text-sm p-4 rounded-lg"><code>
+button:hover {
+  background-color: green;
+  color: white;
+}
+    </code></pre>
+    <iframe class="w-full h-24 border border-gray-300 rounded mb-4" srcdoc='
+      <style>
+        button {
+          padding: 10px 20px;
+          font-size: 16px;
+        }
+        button:hover {
+          background-color: green;
+          color: white;
+        }
+      </style>
+      <button>Hover Me</button>
+    '></iframe>
+  </div>
+
+  <div class="space-y-4">
+    <h3 class="text-2xl font-semibold text-gray-800">🔹 Pseudo-element Selectors</h3>
+    <p class="text-gray-700">Pseudo-elements let you style <strong>specific parts of an element</strong> or insert virtual content (like before or after).</p>
+    <pre class="bg-gray-900 text-green-300 text-sm p-4 rounded-lg"><code>
+p::first-letter {
+  font-size: 200%;
+  color: red;
+}
+    </code></pre>
+    <iframe class="w-full h-24 border border-gray-300 rounded mb-4" srcdoc='
+      <style>
+        p::first-letter {
+          font-size: 200%;
+          color: red;
+        }
+      </style>
+      <p>This paragraph starts with a styled letter.</p>
+    '></iframe>
+
+    <pre class="bg-gray-900 text-green-300 text-sm p-4 rounded-lg"><code>
+h2::before {
+  content: "🔥 ";
+}
+    </code></pre>
+    <iframe class="w-full h-24 border border-gray-300 rounded mb-4" srcdoc='
+      <style>
+        h2::before {
+          content: "🔥 ";
+        }
+      </style>
+      <h2>This heading uses ::before</h2>
+    '></iframe>
+  </div>
+
   <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
     <h3 class="text-lg font-semibold text-yellow-700">🧠 Quick Quiz:</h3>
     <p class="text-gray-700">Which CSS selector is used to select an element with a specific id?</p>
@@ -359,17 +417,9 @@ h1, h2, p {
   </div>
 </section>
 
-          <h2 class="text-2xl font-semibold mb-4">CSS Selectors</h2>
-          <p class="mb-4">Selectors target HTML elements to apply styles. Common selectors include element, class, ID, and attribute selectors.</p>
-          <pre class="mb-4"><code>.class { color: red; }\n#id { font-weight: bold; }\np { font-size: 16px; }</code></pre>
-          <iframe class="w-full h-48 border border-gray-300 rounded-md mb-4" srcdoc='
-            <style>.class { color: red; } #id { font-weight: bold; } p { font-size: 16px; }</style>
-            <p class="class">Class selector</p>
-            <p id="id">ID selector</p>
-            <p>Element selector</p>
-          '></iframe>
-        `
-      },
+  `
+}
+,
       "css-how-to": {
   title: "CSS How To",
   content: `
@@ -383,9 +433,9 @@ h1, h2, p {
   <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
     <h3 class="text-xl font-semibold text-blue-800 mb-2">📌 Three Ways to Insert CSS</h3>
     <ul class="list-disc pl-6 text-gray-700 space-y-1">
-      <li><strong>External CSS</strong></li>
+      <><strong>External CSS</strong></li>
       <li><strong>Internal CSS</strong></li>
-      <li><strong>Inline CSS</strong></li>
+      <lili><strong>Inline CSS</strong></li>
     </ul>
   </div>
 
@@ -1496,21 +1546,105 @@ div {
   content: `
     <h2 class="text-2xl font-semibold mb-4">CSS Fonts</h2>
     <p class="mb-4">
-      CSS font properties allow you to control the appearance of text by specifying the typeface, size, weight, and more.
+      Choosing the right font for your website is important! Fonts affect how users perceive and interact with your content.
     </p>
+    <h3 class="text-xl font-semibold mb-2">Font Selection is Important</h3>
+    <p class="mb-4">
+      The right font can create a strong identity for your brand. Fonts that are easy to read and visually balanced add value to your content.
+      It is also important to choose appropriate colors and text sizes.
+    </p>
+    
+    <h3 class="text-xl font-semibold mb-2">Generic Font Families</h3>
     <ul class="list-disc pl-5 mb-4">
-      <li><strong>font-family:</strong> Specifies the typeface or font. You can list fallback fonts separated by commas.</li>
-      <li><strong>font-size:</strong> Sets the size of the font (px, em, rem, %, etc.).</li>
-      <li><strong>font-weight:</strong> Controls the thickness of the text (normal, bold, numbers 100–900).</li>
-      <li><strong>font-style:</strong> Defines style like normal, italic, or oblique.</li>
-      <li><strong>line-height:</strong> Adjusts the space between lines.</li>
+      <li><strong>Serif:</strong> Has small strokes at the edges of letters. Formal and elegant (e.g., Times New Roman, Georgia).</li>
+      <li><strong>Sans-serif:</strong> Clean and modern, without strokes (e.g., Arial, Helvetica).</li>
+      <li><strong>Monospace:</strong> Each letter has equal width. Mechanical look (e.g., Courier New, Monaco).</li>
+      <li><strong>Cursive:</strong> Imitates handwriting (e.g., Brush Script MT).</li>
+      <li><strong>Fantasy:</strong> Decorative and playful (e.g., Papyrus, Copperplate).</li>
     </ul>
+
+    <h3 class="text-xl font-semibold mb-2">Serif vs. Sans-serif</h3>
+    <p class="mb-4">
+      <strong>Note:</strong> On screens, <strong>sans-serif</strong> fonts are generally easier to read than <strong>serif</strong> fonts.
+    </p>
+
+    <h3 class="text-xl font-semibold mb-2">Font Examples</h3>
+    <table class="mb-4 border w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="border px-4 py-2">Generic Font Family</th>
+          <th class="border px-4 py-2">Examples</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border px-4 py-2">Serif</td>
+          <td class="border px-4 py-2">Times New Roman, Georgia, Garamond</td>
+        </tr>
+        <tr>
+          <td class="border px-4 py-2">Sans-serif</td>
+          <td class="border px-4 py-2">Arial, Helvetica, Verdana</td>
+        </tr>
+        <tr>
+          <td class="border px-4 py-2">Monospace</td>
+          <td class="border px-4 py-2">Courier New, Lucida Console, Monaco</td>
+        </tr>
+        <tr>
+          <td class="border px-4 py-2">Cursive</td>
+          <td class="border px-4 py-2">Brush Script MT, Lucida Handwriting</td>
+        </tr>
+        <tr>
+          <td class="border px-4 py-2">Fantasy</td>
+          <td class="border px-4 py-2">Copperplate, Papyrus</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="text-xl font-semibold mb-2">The <code>font-family</code> Property</h3>
+    <p class="mb-4">
+      In CSS, use <code>font-family</code> to specify the font. If the name contains spaces, wrap it in quotes. Always include fallback fonts.
+    </p>
+
+    <pre class="mb-4 bg-gray-100 p-3 rounded"><code>.p1 {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.p2 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.p3 {
+  font-family: "Lucida Console", "Courier New", monospace;
+}</code></pre>
+
+    <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+      <style>
+        .p1 { font-family: "Times New Roman", Times, serif; }
+        .p2 { font-family: Arial, Helvetica, sans-serif; }
+        .p3 { font-family: "Lucida Console", "Courier New", monospace; }
+      </style>
+      <p class="p1">This is a Serif font</p>
+      <p class="p2">This is a Sans-serif font</p>
+      <p class="p3">This is a Monospace font</p>
+    '></iframe>
+
+    <h3 class="text-xl font-semibold mb-2">Font Property Overview</h3>
+    <ul class="list-disc pl-5 mb-4">
+      <li><strong>font-family:</strong> Type of font (with fallback list).</li>
+      <li><strong>font-size:</strong> Font size (px, em, rem, etc.).</li>
+      <li><strong>font-weight:</strong> Font thickness (normal, bold, 100–900).</li>
+      <li><strong>font-style:</strong> Normal, italic, or oblique.</li>
+      <li><strong>line-height:</strong> Line spacing.</li>
+    </ul>
+
     <pre class="mb-4 bg-gray-100 p-3 rounded"><code>p {
   font-family: Arial, sans-serif;
   font-size: 18px;
   font-weight: bold;
+  line-height: 1.6;
 }</code></pre>
-    <iframe class="w-full h-32 border border-gray-300 rounded-md mb-4" srcdoc='
+
+    <iframe class="w-full h-24 border border-gray-300 rounded-md mb-4" srcdoc='
       <style>
         p {
           font-family: Arial, sans-serif;
@@ -1519,10 +1653,11 @@ div {
           color: #222;
         }
       </style>
-      <p>Styled font</p>
+      <p>Styled font example</p>
     '></iframe>
+
     <p class="mb-4">
-      Using font properties effectively improves readability and gives personality to your website's text.
+      Fonts give your website personality, improve readability, and ensure a great user experience. Use font families and sizes wisely!
     </p>
   `
 }
